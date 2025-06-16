@@ -2,35 +2,52 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the length of the FIR of the channel?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "N",
+        "b": "N+μ",
+        "c": "N+μ−1",
+        "d": "μ"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. N is the number of subcarriers in OFDM, not the channel length.",
+        "b": "Incorrect. N+μ is the total length of the OFDM block with cyclic prefix.",
+        "c": "Incorrect. N+μ−1 is not a standard representation of the channel length.",
+        "d": "Correct. The FIR length of the channel is μ."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "d",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "Which one of the following is NOT correct in the context of OFDM?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "We consider flat fading over the channel corresponding to each sub-carrier",
+        "b": "We consider flat fading over the entire channel",
+        "c": "This scheme provides efficient bandwidth usage",
+        "d": "This scheme can be used in a MIMO system to achieve frequency as well as spatial multiplexing"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Correct. Each sub-carrier experiences flat fading due to narrowband division.",
+        "b": "Incorrect. This is false—OFDM divides the wideband channel into flat fading narrowband sub-carriers.",
+        "c": "Correct. OFDM offers efficient use of bandwidth by overlapping subcarriers orthogonally.",
+        "d": "Correct. OFDM is compatible with MIMO for both frequency and spatial multiplexing gains."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the rate of this scheme (in number of QAM symbols per sampling time)?",
+      "answers": {
+        "a": "N+μ",
+        "b": "μ",
+        "c": "N",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Incorrect. N+μ is the total number of samples per block, including cyclic prefix.",
+        "b": "Incorrect. μ is just the cyclic prefix length and does not represent symbol rate.",
+        "c": "Correct. The system transmits N QAM symbols in N+μ samples, giving a rate of N/(N+μ) ≈ N per sample time.",
+        "d": "Incorrect. Option c is the correct representation."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
