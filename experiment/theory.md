@@ -32,7 +32,7 @@ x[n] = \frac{1}{\sqrt{N}} \sum_{i=0}^{N-1} X[i] e^{j \frac{2\pi n}{N} i}, \quad 
 - The resulting signal is **converted to analog (D/A)**
 - Modulated using a carrier frequency \( f_0 \)
 
-![OFDM Transmitter Schematic](ofdm_tx.png)  
+<img src="./images/ofdm_tx.png"> 
 *Figure 1: OFDM transmitter schematic*
 
 ---
@@ -72,7 +72,7 @@ where:
 - The FFT output is **converted to serial**
 - **QAM demodulation and estimation** is performed to recover the original data
 
-![OFDM Receiver Schematic](ofdm_rx.png)  
+<img src="./images/ofdm_rx.png">  
 *Figure 2: OFDM receiver schematic*
 
 ---
