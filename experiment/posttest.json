@@ -2,37 +2,37 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "Which of the following is correct?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Channel state information (CSI) at the transmitter is necessary for this scheme to be effective",
+        "b": "Choosing a larger number of sub-carriers will lead to more accurate (less errors) communication",
+        "c": "If too many sub-carriers are used, it might lead to inter-carrier interference (ICI)",
+        "d": "Cyclic prefix is mandatory even if this scheme is implemented in continuous time"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect. CSI at the transmitter is helpful but not strictly necessary for OFDM's effectiveness.",
+        "b": "Incorrect. A larger number of sub-carriers reduces ICI only up to a point; too many can increase it due to synchronization issues.",
+        "c": "Correct. Excessive sub-carriers can cause tight spacing, leading to inter-carrier interference (ICI).",
+        "d": "Incorrect. Cyclic prefix is specific to discrete-time implementations for handling circular convolution."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "c",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "What does 'orthogonal' refer to in OFDM?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "The sub-carriers are all orthogonal to each other, which can mitigate inter-carrier interference (ICI)",
+        "b": "The basis signals used to perform QAM encoding are orthogonal",
+        "c": "Both of the above",
+        "d": "None of the above"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Correct. Orthogonality among sub-carriers ensures they don't interfere with each other in the frequency domain.",
+        "b": "Incorrect. QAM encoding does not rely on orthogonal basis signals in this context.",
+        "c": "Incorrect. Only sub-carriers are orthogonal, not QAM basis signals.",
+        "d": "Incorrect. Sub-carrier orthogonality is fundamental to OFDM."
       },
-      "correctAnswer": "c",
+      "correctAnswer": "a",
       "difficulty": "beginner"
     }
   ]
