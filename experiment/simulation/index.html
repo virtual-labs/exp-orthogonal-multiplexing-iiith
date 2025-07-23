@@ -1,13 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Interactive OFDM Lab</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
 </head>
 <body>
-		<!-- Your code goes here-->
+    <div class="container">
+        <!-- Input Column -->
+        <div class="column input-column">
+            <h2>Input Parameters</h2>
+            <div class="input-group"><label for="subcarriers">Subcarriers (N):</label><input type="number" id="subcarriers" min="8" max="256" value="16" step="2"></div>
+            <div class="input-group"><label for="modulation">Modulation:</label><select id="modulation"><option value="2">BPSK</option><option value="4" selected>QPSK</option><option value="16">16-QAM</option><option value="64">64-QAM</option></select></div>
+            <div class="input-group"><label for="channelLength">Channel Length (μ):</label><input type="number" id="channelLength" min="1" max="16" value="3"></div>
+            <div class="input-group"><label for="cpLength">Cyclic Prefix (Lcp):</label><input type="number" id="cpLength" min="0" max="32" value="4"></div>
+            <div class="input-group"><label for="snr">SNR (dB):</label><input type="number" id="snr" min="-10" max="40" value="20"></div>
+            <button class="main-button" onclick="resetSimulation()">Start New Simulation</button>
+            <div class="info-box"><strong>OFDM Principle:</strong><br>A high-rate data stream is split into N lower-rate streams. A <strong>Cyclic Prefix (CP)</strong> is added to eliminate Inter-Symbol Interference (ISI), provided <strong>Lcp ≥ μ-1</strong>. This simplifies channel equalization.</div>
+        </div>
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+        <!-- Simulation Column -->
+        <div class="column simulation-column">
+            <h2 id="simulationTitle">OFDM Transmission Chain</h2>
+            <div id="statusBar">Click "Start" to begin.</div>
+            <canvas id="blockDiagram" width="800" height="100"></canvas>
+            <div id="stageDisplay"></div>
+            <div id="navigation">
+                <button id="prevButton" class="nav-button" onclick="handlePrevious()">Previous</button>
+                <button id="nextButton" class="nav-button" onclick="handleNext()">Next</button>
+            </div>
+        </div>
+
+        <!-- Output Column -->
+        <div class="column output-column">
+            <h2>Analysis Results</h2>
+            <div class="output-item"><div class="output-label">Bit Error Rate (BER)</div><div class="output-value" id="outputBER">N/A</div></div>
+            <div class="output-item"><div class="output-label">Total Bits</div><div class="output-value" id="outputTotalBits">N/A</div></div>
+            <div class="output-item"><div class="output-label">Error Bits</div><div class="output-value" id="outputErrorBits">N/A</div></div>
+            <div class="output-item"><div class="output-label">Spectral Efficiency</div><div class="output-value" id="spectralEfficiency">N/A</div></div>
+            <div class="output-item"><div class="output-label">PAPR</div><div class="output-value" id="papr">N/A</div></div>
+            <div class="info-box"><strong>Observations:</strong><br>• As <strong>SNR decreases</strong>, the received points scatter, increasing BER.<br>• If <strong>Lcp < μ-1</strong>, ISI occurs, causing severe distortion.<br>• Higher-order modulation requires higher SNR for the same BER.</div>
+        </div>
+    </div>
+    <!-- Load external libraries first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

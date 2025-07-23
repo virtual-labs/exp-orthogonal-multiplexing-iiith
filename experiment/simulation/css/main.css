@@ -1,1 +1,132 @@
-/* You CSS goes in here */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f0f2f5; color: #333; height: 100vh; overflow-x: hidden; }
+.container { display: flex; height: 100vh; }
+.column { padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
+.input-column { width: 25%; background-color: #ffffff; border-right: 1px solid #ddd; }
+.simulation-column { width: 50%; background-color: #f8f9fa; }
+.output-column { width: 25%; background-color: #ffffff; border-left: 1px solid #ddd; }
+h2 { color: #1e3a59; margin-bottom: 20px; text-align: center; font-size: 1.2em; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+.input-group { margin-bottom: 18px; }
+label { display: block; margin-bottom: 6px; font-weight: bold; color: #34495e; font-size: 0.9em; }
+input[type="number"], select { width: 100%; padding: 10px; border: 1px solid #bdc3c7; border-radius: 5px; font-size: 1em; background-color: #fff; }
+input:focus, select:focus { outline: none; border-color: #3498db; box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); }
+.main-button { width: 100%; padding: 12px; background-color: #27ae60; color: white; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; margin-top: 10px; transition: background-color 0.3s; }
+.main-button:hover { background-color: #229954; }
+
+#statusBar {
+    width: 100%; background-color: #eaf2f8; border: 1px solid #aed6f1;
+    padding: 10px; text-align: center; font-weight: bold; color: #1a5276;
+    border-radius: 5px; margin-bottom: 15px; height: 45px; display: flex; align-items: center; justify-content: center;
+}
+
+#blockDiagram {
+    width: 100%; height: 100px; margin-bottom: 15px; background-color: white;
+    border: 1px solid #ddd; border-radius: 8px;
+}
+
+#stageDisplay { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+#stageDisplay canvas { 
+    max-width: 100%; /* Ensure canvas doesn't overflow its container */
+    background-color: white; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}
+#stageDisplay h3 { color: #2c3e50; margin-bottom: 10px; font-size: 1.1em; }
+
+#navigation { display: flex; justify-content: space-between; width: 100%; margin-top: 15px; }
+.nav-button { width: 48%; padding: 10px; font-size: 1em; border-radius: 5px; border: 1px solid #3498db; cursor: pointer; transition: all 0.2s; }
+.nav-button:disabled { background-color: #ecf0f1; color: #bdc3c7; border-color: #ddd; cursor: not-allowed; }
+.nav-button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+#prevButton { background-color: #f8f9fa; color: #3498db; }
+#nextButton { background-color: #3498db; color: white; }
+
+.output-item { margin-bottom: 15px; padding: 10px; background-color: #f8f9fa; border-radius: 5px; border-left: 4px solid #3498db; }
+.output-label { font-weight: bold; color: #2c3e50; font-size: 0.8em; margin-bottom: 5px; text-transform: uppercase; }
+.output-value { font-size: 1.1em; color: #34495e; font-family: 'Courier New', Courier, monospace; }
+.info-box { background-color: #e8f4fd; border: 1px solid #3498db; border-radius: 5px; padding: 10px; margin-top: 20px; font-size: 0.85em; line-height: 1.4; }
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    body {
+        height: auto;
+        overflow-y: auto;
+    }
+    
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .column {
+        width: 100% !important;
+        border: none !important;
+        padding: 15px;
+    }
+    
+    .input-column {
+        order: 1;
+    }
+    
+    .simulation-column {
+        order: 2;
+        margin-bottom: 15px;
+    }
+    
+    .output-column {
+        order: 3;
+    }
+    
+    h2 {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+    
+    #blockDiagram {
+        height: 80px;
+    }
+    
+    #statusBar {
+        height: auto;
+        min-height: 45px;
+        padding: 8px;
+        font-size: 0.9em;
+    }
+    
+    .nav-button {
+        padding: 12px 8px;
+    }
+    
+    .info-box {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 320px) {
+    .column {
+        padding: 10px;
+    }
+    
+    h2 {
+        font-size: 1em;
+    }
+    
+    #stageDisplay h3 {
+        font-size: 1em;
+    }
+    
+    .output-value {
+        font-size: 0.9em;
+    }
+    
+    .input-group {
+        margin-bottom: 12px;
+    }
+    
+    input[type="number"], select {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+    
+    .main-button {
+        padding: 10px;
+        font-size: 1em;
+    }
+}
