@@ -1,92 +1,84 @@
-[
-  {
-    "question": "What is the main advantage of OFDM over single-carrier systems?",
-    "options": {
-      "A": "Requires less bandwidth",
-      "B": "Reduced transmitter complexity",
-      "C": "Converts frequency-selective fading into flat fading per subcarrier",
-      "D": "Eliminates the need for channel coding"
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is the main advantage of OFDM over single-carrier systems?",
+      "answers": {
+        "a": "Requires less bandwidth",
+        "b": "Reduced transmitter complexity",
+        "c": "Converts frequency-selective fading into flat fading per subcarrier",
+        "d": "Eliminates the need for channel coding"
+      },
+      "explanations": {
+        "a": "Incorrect. OFDM generally requires the same bandwidth as single-carrier systems.",
+        "b": "Incorrect. OFDM transmitter complexity is generally higher due to FFT processing.",
+        "c": "Correct. OFDM splits the wideband channel into many narrowband flat-fading subcarriers, simplifying equalization.",
+        "d": "Incorrect. Channel coding is still needed in OFDM systems."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
     },
-    "answer": "C"
-  },
-  {
-    "question": "Which of the following systems uses OFDM?",
-    "options": {
-      "A": "AM radio",
-      "B": "GSM",
-      "C": "Wi-Fi (802.11a/g/n/ac/ax)",
-      "D": "CDMA"
+    {
+      "question": "Which of the following systems uses OFDM?",
+      "answers": {
+        "a": "AM radio",
+        "b": "GSM",
+        "c": "Wi-Fi (802.11a/g/n/ac/ax)",
+        "d": "CDMA"
+      },
+      "explanations": {
+        "a": "Incorrect. AM radio uses amplitude modulation, not OFDM.",
+        "b": "Incorrect. GSM uses TDMA and FDMA, not OFDM.",
+        "c": "Correct. Modern Wi-Fi standards use OFDM for high data rates and robustness.",
+        "d": "Incorrect. CDMA uses spread spectrum, not OFDM."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
     },
-    "answer": "C"
-  },
-  {
-    "question": "What ensures orthogonality among subcarriers in OFDM?",
-    "options": {
-      "A": "Using different modulation schemes per subcarrier",
-      "B": "Time separation between subcarriers",
-      "C": "Subcarriers are spaced at multiples of the inverse of the OFDM symbol duration",
-      "D": "Equal power allocation"
+    {
+      "question": "What ensures orthogonality among subcarriers in OFDM?",
+      "answers": {
+        "a": "Using different modulation schemes per subcarrier",
+        "b": "Time separation between subcarriers",
+        "c": "Subcarriers are spaced at multiples of the inverse of the OFDM symbol duration",
+        "d": "Equal power allocation"
+      },
+      "explanations": {
+        "a": "Incorrect. Modulation schemes do not ensure orthogonality.",
+        "b": "Incorrect. Orthogonality is not maintained by time separation but frequency spacing.",
+        "c": "Correct. Proper subcarrier spacing ensures orthogonality and prevents inter-carrier interference.",
+        "d": "Incorrect. Power allocation does not affect orthogonality."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
     },
-    "answer": "C"
-  },
-  {
-    "question": "The frequency spacing between subcarriers in OFDM is:",
-    "options": {
-      "A": "Arbitrary",
-      "B": "Equal to the channel bandwidth",
-      "C": "Equal to 1/(OFDM symbol duration)",
-      "D": "Dependent on the SNR"
+    {
+      "question": "The frequency spacing between subcarriers in OFDM is:",
+      "answers": {
+        "a": "Arbitrary",
+        "b": "Equal to the channel bandwidth",
+        "c": "Equal to 1/(OFDM symbol duration)",
+        "d": "Dependent on the SNR"
+      },
+      "explanations": {
+        "a": "Incorrect. Subcarrier spacing must be chosen carefully.",
+        "b": "Incorrect. The total bandwidth contains all subcarriers but spacing is smaller.",
+        "c": "Correct. This spacing ensures subcarrier orthogonality.",
+        "d": "Incorrect. SNR does not determine subcarrier spacing."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
     },
-    "answer": "C"
-  },
-  {
-    "question": "Which of the following is used to mitigate Inter-Symbol Interference (ISI) in OFDM?",
-    "options": {
-      "A": "Raised cosine filter",
-      "B": "Cyclic prefix",
-      "C": "Low-pass filter",
-      "D": "Guard bands"
-    },
-    "answer": "B"
-  },
-  {
-    "question": "OFDM is particularly effective in which type of channel?",
-    "options": {
-      "A": "AWGN only",
-      "B": "Frequency-selective fading",
-      "C": "Flat fading",
-      "D": "Interference-limited channels"
-    },
-    "answer": "B"
-  },
-  {
-    "question": "What is the role of the Inverse Fast Fourier Transform (IFFT) in an OFDM transmitter?",
-    "options": {
-      "A": "Modulate data onto the carrier frequency",
-      "B": "Convert frequency-domain symbols into time-domain waveform",
-      "C": "Filter out noise",
-      "D": "Demodulate the signal"
-    },
-    "answer": "B"
-  },
-  {
-    "question": "In OFDM, the cyclic prefix should be:",
-    "options": {
-      "A": "Equal to the symbol duration",
-      "B": "Longer than the entire OFDM frame",
-      "C": "Longer than the channel delay spread",
-      "D": "Equal to the number of subcarriers"
-    },
-    "answer": "C"
-  },
-  {
-    "question": "What type of equalizer is commonly used in OFDM systems?",
-    "options": {
-      "A": "Time-domain FIR filter",
-      "B": "Frequency-domain scalar equalizer",
-      "C": "LMS adaptive equalizer",
-      "D": "Decision feedback equalizer"
-    },
-    "answer": "B"
-  }
-]
+    {
+      "question": "Which of the following is used to mitigate Inter-Symbol Interference (ISI) in OFDM?",
+      "answers": {
+        "a": "Raised cosine filter",
+        "b": "Cyclic prefix",
+        "c": "Low-pass filter",
+        "d": "Guard bands"
+      },
+      "explanations": {
+        "a": "Incorrect. Raised cosine filtering is common in single-carrier systems.",
+        "b": "Correct. Cyclic prefix absorbs delayed echoes to prevent ISI.",
+        "c": "Incorrect. Low-pass filters do not specifically mitigate ISI in OFDM.",
+        "d": "Incorrect. Guard bands reduce interference but do not
