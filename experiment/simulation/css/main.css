@@ -1,6 +1,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f0f2f5; color: #333; height: 100vh; overflow-x: hidden; }
 .container { display: flex; height: 100vh; }
+
 .column { padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
 .input-column { width: 25%; background-color: #ffffff; border-right: 1px solid #ddd; }
 .simulation-column { width: 50%; background-color: #f8f9fa; }
@@ -52,7 +53,7 @@ input:focus, select:focus { outline: none; border-color: #3498db; box-shadow: 0 
     
     .container {
         flex-direction: column;
-        height: auto;
+    
     }
     
     .column {
@@ -99,34 +100,151 @@ input:focus, select:focus { outline: none; border-color: #3498db; box-shadow: 0 
     }
 }
 
-@media (max-width: 320px) {
+/* Enhanced mobile support for very small screens */
+@media (max-width: 400px) {
+    body {
+        font-size: 14px;
+    }
+    
     .column {
-        padding: 10px;
+        padding: 8px;
     }
     
     h2 {
-        font-size: 1em;
-    }
-    
-    #stageDisplay h3 {
-        font-size: 1em;
-    }
-    
-    .output-value {
-        font-size: 0.9em;
+        font-size: 0.95em;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
     }
     
     .input-group {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+    }
+    
+    label {
+        font-size: 0.85em;
+        margin-bottom: 4px;
     }
     
     input[type="number"], select {
-        padding: 8px;
+        padding: 8px 5px;
         font-size: 0.9em;
+        height: 36px; /* Ensure touch-friendly size */
     }
     
     .main-button {
-        padding: 10px;
-        font-size: 1em;
+        padding: 10px 5px;
+        font-size: 0.95em;
+        height: 40px;
+    }
+    
+    #statusBar {
+        font-size: 0.85em;
+        padding: 6px;
+        min-height: 38px;
+        margin-bottom: 10px;
+    }
+    
+    #blockDiagram {
+        height: 70px;
+        margin-bottom: 10px;
+    }
+    
+    #stageDisplay h3 {
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+    
+    .nav-button {
+        padding: 8px 5px;
+        font-size: 0.9em;
+    }
+    
+    .output-item {
+        margin-bottom: 10px;
+        padding: 8px;
+    }
+    
+    .output-label {
+        font-size: 0.75em;
+    }
+    
+    .output-value {
+        font-size: 0.85em;
+    }
+    
+    .info-box {
+        font-size: 0.75em;
+        padding: 8px;
+        margin-top: 12px;
+        line-height: 1.3;
+    }
+}
+
+/* Ultra-small screen optimizations for 300px width devices */
+@media (max-width: 320px) {
+    .column {
+        padding: 6px;
+    }
+    
+    h2 {
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+    
+    #stageDisplay h3 {
+        font-size: 0.85em;
+        margin-bottom: 6px;
+    }
+    
+    .output-value {
+        font-size: 0.8em;
+    }
+    
+    .input-group {
+        margin-bottom: 8px;
+    }
+    
+    input[type="number"], select {
+        padding: 6px 4px;
+        font-size: 0.85em;
+        height: 34px;
+    }
+    
+    .main-button {
+        padding: 8px 4px;
+        font-size: 0.9em;
+        height: 36px;
+    }
+    
+    #statusBar {
+        padding: 4px;
+        min-height: 32px;
+        margin-bottom: 8px;
+        font-size: 0.8em;
+    }
+    
+    .nav-button {
+        padding: 6px 3px;
+        font-size: 0.85em;
+    }
+    
+    #blockDiagram {
+        height: 60px;
+    }
+    
+    .info-box {
+        font-size: 0.7em;
+        padding: 6px;
+        line-height: 1.2;
+    }
+    
+    .output-item {
+        padding: 6px;
+        margin-bottom: 8px;
+    }
+    
+    .output-label {
+        font-size: 0.7em;
+        margin-bottom: 3px;
     }
 }

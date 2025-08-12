@@ -9,6 +9,5 @@
 ### Developers
 | SNo. | Name | Email | Institute | ID |
 | :---: | :---: | :---: | :---: | :---: |
-| 1 | Yash Motwani | yash.motwani@iiit.ac.in | IIIT-H | id |
-| 2 | Rishiveer Yadav Angirekula | rishiveeryadav.a@research.iiit.ac.in | IIIT-H | id |
-| 3 | Ved Prakash Maurya| ved.maurya@students.iiit.ac.in | IIIT-H | id |
+| 1 | Rishiveer Yadav Angirekula | rishiveeryadav.a@research.iiit.ac.in | IIIT-H | id |
+| 2 | Ved Prakash Maurya| ved.maurya@students.iiit.ac.in | IIIT-H | id |
