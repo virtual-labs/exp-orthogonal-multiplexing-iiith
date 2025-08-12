@@ -1,56 +1,92 @@
-{
-  "version": 2.0,
-  "questions": [
-    {
-      "question": "What is the length of the FIR of the channel?",
-      "answers": {
-        "a": "N",
-        "b": "N+μ",
-        "c": "N+μ−1",
-        "d": "μ"
-      },
-      "explanations": {
-        "a": "Incorrect. N is the number of subcarriers in OFDM, not the channel length.",
-        "b": "Incorrect. N+μ is the total length of the OFDM block with cyclic prefix.",
-        "c": "Incorrect. N+μ−1 is not a standard representation of the channel length.",
-        "d": "Correct. The FIR length of the channel is μ."
-      },
-      "correctAnswer": "d",
-      "difficulty": "beginner"
+[
+  {
+    "question": "What is the main advantage of OFDM over single-carrier systems?",
+    "options": {
+      "A": "Requires less bandwidth",
+      "B": "Reduced transmitter complexity",
+      "C": "Converts frequency-selective fading into flat fading per subcarrier",
+      "D": "Eliminates the need for channel coding"
     },
-    {
-      "question": "Which one of the following is NOT correct in the context of OFDM?",
-      "answers": {
-        "a": "We consider flat fading over the channel corresponding to each sub-carrier",
-        "b": "We consider flat fading over the entire channel",
-        "c": "This scheme provides efficient bandwidth usage",
-        "d": "This scheme can be used in a MIMO system to achieve frequency as well as spatial multiplexing"
-      },
-      "explanations": {
-        "a": "Correct. Each sub-carrier experiences flat fading due to narrowband division.",
-        "b": "Incorrect. This is false—OFDM divides the wideband channel into flat fading narrowband sub-carriers.",
-        "c": "Correct. OFDM offers efficient use of bandwidth by overlapping subcarriers orthogonally.",
-        "d": "Correct. OFDM is compatible with MIMO for both frequency and spatial multiplexing gains."
-      },
-      "correctAnswer": "b",
-      "difficulty": "beginner"
+    "answer": "C"
+  },
+  {
+    "question": "Which of the following systems uses OFDM?",
+    "options": {
+      "A": "AM radio",
+      "B": "GSM",
+      "C": "Wi-Fi (802.11a/g/n/ac/ax)",
+      "D": "CDMA"
     },
-    {
-      "question": "What is the rate of this scheme (in number of QAM symbols per sampling time)?",
-      "answers": {
-        "a": "N+μ",
-        "b": "μ",
-        "c": "N",
-        "d": "None of the above"
-      },
-      "explanations": {
-        "a": "Incorrect. N+μ is the total number of samples per block, including cyclic prefix.",
-        "b": "Incorrect. μ is just the cyclic prefix length and does not represent symbol rate.",
-        "c": "Correct. The system transmits N QAM symbols in N+μ samples, giving a rate of N/(N+μ) ≈ N per sample time.",
-        "d": "Incorrect. Option c is the correct representation."
-      },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
-    }
-  ]
-}
+    "answer": "C"
+  },
+  {
+    "question": "What ensures orthogonality among subcarriers in OFDM?",
+    "options": {
+      "A": "Using different modulation schemes per subcarrier",
+      "B": "Time separation between subcarriers",
+      "C": "Subcarriers are spaced at multiples of the inverse of the OFDM symbol duration",
+      "D": "Equal power allocation"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "The frequency spacing between subcarriers in OFDM is:",
+    "options": {
+      "A": "Arbitrary",
+      "B": "Equal to the channel bandwidth",
+      "C": "Equal to 1/(OFDM symbol duration)",
+      "D": "Dependent on the SNR"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "Which of the following is used to mitigate Inter-Symbol Interference (ISI) in OFDM?",
+    "options": {
+      "A": "Raised cosine filter",
+      "B": "Cyclic prefix",
+      "C": "Low-pass filter",
+      "D": "Guard bands"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "OFDM is particularly effective in which type of channel?",
+    "options": {
+      "A": "AWGN only",
+      "B": "Frequency-selective fading",
+      "C": "Flat fading",
+      "D": "Interference-limited channels"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "What is the role of the Inverse Fast Fourier Transform (IFFT) in an OFDM transmitter?",
+    "options": {
+      "A": "Modulate data onto the carrier frequency",
+      "B": "Convert frequency-domain symbols into time-domain waveform",
+      "C": "Filter out noise",
+      "D": "Demodulate the signal"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "In OFDM, the cyclic prefix should be:",
+    "options": {
+      "A": "Equal to the symbol duration",
+      "B": "Longer than the entire OFDM frame",
+      "C": "Longer than the channel delay spread",
+      "D": "Equal to the number of subcarriers"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "What type of equalizer is commonly used in OFDM systems?",
+    "options": {
+      "A": "Time-domain FIR filter",
+      "B": "Frequency-domain scalar equalizer",
+      "C": "LMS adaptive equalizer",
+      "D": "Decision feedback equalizer"
+    },
+    "answer": "B"
+  }
+]
