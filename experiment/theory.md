@@ -20,7 +20,7 @@ These symbols are passed through:
 
 $$
 \begin{aligned}
-x[n] = \frac{1}{\sqrt{N}} \sum_{i=0}^{N-1} X[i] e^{j \frac{2\pi n}{N} i}, \quad 0 \leq n \leq N-1
+    x[n] = \frac{1}{\sqrt{N}} \sum_{i=0}^{N-1} X[i] e^{j \frac{2\pi n}{N} i}, \quad 0 \leq n \leq N-1
 \end{aligned}
 $$
 
@@ -34,10 +34,11 @@ $$
 - The resulting signal is **converted to analog (D/A)**
 - Modulated using a carrier frequency $f_0$
 
+<p align="center">
 <img src="./images/ofdm_tx.png"> 
+</p>
 *Figure 1: OFDM transmitter schematic*
 
----
 
 ## Channel
 
@@ -46,11 +47,9 @@ $$
 
 $$
 \begin{aligned}
-y[n] = \tilde{x}[n] * h[n] + \nu[n], \quad -\mu \leq n \leq N-1
+    y[n] = \tilde{x}[n] * h[n] + \nu[n], \quad -\mu \leq n \leq N-1
 \end{aligned}
 $$
-
----
 
 ## Receiver
 
@@ -64,7 +63,7 @@ $$
 
 $$
 \begin{aligned}
-Y[i] = H[i] X[i] + \tilde{\nu}[i]
+    Y[i] = H[i] X[i] + \tilde{\nu}[i]
 \end{aligned}
 $$
 
@@ -78,12 +77,12 @@ where:
 - The FFT output is **converted to serial**
 - **QAM demodulation and estimation** is performed to recover the original data
 
-<img src="./images/ofdm_rx.png">  
+<p align="center">
+<img src="./images/ofdm_rx.png">
+</p>
 *Figure 2: OFDM receiver schematic*
 
----
-
-## † Cyclic Prefix
+## Cyclic Prefix
 
 The **cyclic prefix** is added to convert the **linear convolution** from the channel into a **circular convolution**, which is compatible with the DFT framework.
 
@@ -91,7 +90,7 @@ With a cyclic prefix:
 
 $$
 \begin{aligned}
-Y[i] = \text{DFT}\{ y[n] = h[n] \circledast x[n] \} = H[i] X[i], \quad 0 \leq i \leq N-1
+    Y[i] = \text{DFT}\{ y[n] = h[n] \circledast x[n] \} = H[i] X[i], \quad 0 \leq i \leq N-1
 \end{aligned}
 $$
 
