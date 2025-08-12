@@ -39,7 +39,6 @@ $$
 </p>
 *Figure 1: OFDM transmitter schematic*
 
----
 
 ## Channel
 
