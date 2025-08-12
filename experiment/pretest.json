@@ -81,4 +81,78 @@
         "a": "Incorrect. Raised cosine filtering is common in single-carrier systems.",
         "b": "Correct. Cyclic prefix absorbs delayed echoes to prevent ISI.",
         "c": "Incorrect. Low-pass filters do not specifically mitigate ISI in OFDM.",
-        "d": "Incorrect. Guard bands reduce interference but do not
+        "d": "Incorrect. Guard bands reduce interference but do not directly mitigate ISI."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "OFDM is particularly effective in which type of channel?",
+      "answers": {
+        "a": "AWGN only",
+        "b": "Frequency-selective fading",
+        "c": "Flat fading",
+        "d": "Interference-limited channels"
+      },
+      "explanations": {
+        "a": "Incorrect. OFDM works well beyond AWGN channels.",
+        "b": "Correct. OFDM converts frequency-selective fading into flat fading per subcarrier, simplifying equalization.",
+        "c": "Incorrect. Flat fading can be handled by simpler single-carrier systems.",
+        "d": "Incorrect. Interference-limited conditions require other mitigation techniques."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the role of the Inverse Fast Fourier Transform (IFFT) in an OFDM transmitter?",
+      "answers": {
+        "a": "Modulate data onto the carrier frequency",
+        "b": "Convert frequency-domain symbols into time-domain waveform",
+        "c": "Filter out noise",
+        "d": "Demodulate the signal"
+      },
+      "explanations": {
+        "a": "Incorrect. IFFT does not directly modulate on carrier frequency.",
+        "b": "Correct. IFFT converts the set of modulated subcarriers into a time-domain OFDM symbol.",
+        "c": "Incorrect. Filtering is done separately.",
+        "d": "Incorrect. Demodulation is done at the receiver using FFT."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "In OFDM, the cyclic prefix should be:",
+      "answers": {
+        "a": "Equal to the symbol duration",
+        "b": "Longer than the entire OFDM frame",
+        "c": "Longer than the channel delay spread",
+        "d": "Equal to the number of subcarriers"
+      },
+      "explanations": {
+        "a": "Incorrect. CP is a small fraction of the symbol duration.",
+        "b": "Incorrect. CP length is much shorter than the OFDM frame.",
+        "c": "Correct. CP must be longer than maximum channel delay spread to avoid ISI.",
+        "d": "Incorrect. CP length is measured in time, not subcarrier count."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What type of equalizer is commonly used in OFDM systems?",
+      "answers": {
+        "a": "Time-domain FIR filter",
+        "b": "Frequency-domain scalar equalizer",
+        "c": "LMS adaptive equalizer",
+        "d": "Decision feedback equalizer"
+      },
+      "explanations": {
+        "a": "Incorrect. OFDM typically uses simple frequency-domain equalization.",
+        "b": "Correct. Each subcarrier is equalized independently by scalar multiplication in frequency domain.",
+        "c": "Incorrect. LMS is more common in single-carrier adaptive systems.",
+        "d": "Incorrect. DFE is not commonly used in OFDM."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    }
+  ]
+}
