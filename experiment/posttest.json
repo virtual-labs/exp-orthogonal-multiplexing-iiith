@@ -1,39 +1,102 @@
-{
-  "version": 2.0,
-  "questions": [
-    {
-      "question": "Which of the following is correct?",
-      "answers": {
-        "a": "Channel state information (CSI) at the transmitter is necessary for this scheme to be effective",
-        "b": "Choosing a larger number of sub-carriers will lead to more accurate (less errors) communication",
-        "c": "If too many sub-carriers are used, it might lead to inter-carrier interference (ICI)",
-        "d": "Cyclic prefix is mandatory even if this scheme is implemented in continuous time"
-      },
-      "explanations": {
-        "a": "Incorrect. CSI at the transmitter is helpful but not strictly necessary for OFDM's effectiveness.",
-        "b": "Incorrect. A larger number of sub-carriers reduces ICI only up to a point; too many can increase it due to synchronization issues.",
-        "c": "Correct. Excessive sub-carriers can cause tight spacing, leading to inter-carrier interference (ICI).",
-        "d": "Incorrect. Cyclic prefix is specific to discrete-time implementations for handling circular convolution."
-      },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
+[
+  {
+    "question": "A major drawback of OFDM is:",
+    "options": {
+      "A": "High out-of-band radiation",
+      "B": "High Peak-to-Average Power Ratio (PAPR)",
+      "C": "Requires time synchronization only",
+      "D": "Inability to handle multipath fading"
     },
-    {
-      "question": "What does 'orthogonal' refer to in OFDM?",
-      "answers": {
-        "a": "The sub-carriers are all orthogonal to each other, which can mitigate inter-carrier interference (ICI)",
-        "b": "The basis signals used to perform QAM encoding are orthogonal",
-        "c": "Both of the above",
-        "d": "None of the above"
-      },
-      "explanations": {
-        "a": "Correct. Orthogonality among sub-carriers ensures they don't interfere with each other in the frequency domain.",
-        "b": "Incorrect. QAM encoding does not rely on orthogonal basis signals in this context.",
-        "c": "Incorrect. Only sub-carriers are orthogonal, not QAM basis signals.",
-        "d": "Incorrect. Sub-carrier orthogonality is fundamental to OFDM."
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
-    }
-  ]
-}
+    "answer": "B"
+  },
+  {
+    "question": "Which of the following techniques is used to reduce PAPR in OFDM?",
+    "options": {
+      "A": "Zero forcing",
+      "B": "Clipping and filtering",
+      "C": "MMSE equalization",
+      "D": "Adding longer cyclic prefix"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "Why is a cyclic prefix used instead of a simple zero-padding in OFDM?",
+    "options": {
+      "A": "It simplifies time synchronization",
+      "B": "It reduces PAPR",
+      "C": "It preserves circular convolution structure, enabling diagonalization via FFT",
+      "D": "It increases spectral efficiency"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "The number of subcarriers in an OFDM system is typically:",
+    "options": {
+      "A": "Prime number",
+      "B": "Very large to reduce delay",
+      "C": "A power of 2 for efficient FFT implementation",
+      "D": "Equal to the modulation order"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "OFDM achieves robustness to frequency-selective fading primarily because:",
+    "options": {
+      "A": "It transmits in the time domain only",
+      "B": "It averages fading over multiple antennas",
+      "C": "Each subcarrier sees flat fading due to narrowband nature",
+      "D": "It uses non-coherent modulation"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "What does 'orthogonal' refer to in OFDM?",
+    "options": {
+      "A": "The sub-carriers are all orthogonal to each other, which can mitigate inter-carrier interference (ICI)",
+      "B": "The basis signals used to perform QAM encoding are orthogonal",
+      "C": "Both of the above",
+      "D": "None of the above"
+    },
+    "answer": "A"
+  },
+  {
+    "question": "Which one of the following is NOT correct in the context of OFDM?",
+    "options": {
+      "A": "We consider flat fading over the channel corresponding to each sub-carrier",
+      "B": "We consider flat fading over the entire channel",
+      "C": "This scheme provides efficient bandwidth usage",
+      "D": "This scheme can be used in a MIMO system to achieve frequency as well as spatial multiplexing"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "What is the length of the FIR of the channel?",
+    "options": {
+      "A": "N",
+      "B": "N+μ",
+      "C": "N+μ-1",
+      "D": "μ"
+    },
+    "answer": "D"
+  },
+  {
+    "question": "What is the rate of this scheme (in no. of QAM symbols per sampling time)?",
+    "options": {
+      "A": "N+μ",
+      "B": "μ",
+      "C": "N",
+      "D": "None of the above"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "Which of the following is correct?",
+    "options": {
+      "A": "Channel state information (CSI) at the transmitter is necessary for this scheme to be effective",
+      "B": "Choosing a larger number of sub-carriers will lead to more accurate (less errors) communication",
+      "C": "If too many sub-carriers are used, it might lead to inter-carrier interference (ICI)",
+      "D": "Cyclic prefix is mandatory even if this scheme is implemented in continuous time"
+    },
+    "answer": "C"
+  }
+]
