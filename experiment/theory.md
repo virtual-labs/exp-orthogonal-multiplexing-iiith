@@ -35,7 +35,7 @@ $$
 - Modulated using a carrier frequency $f_0$
 
 <p align="center">
-<img src="./images/ofdm_tx.png"> 
+<img src="./images/ofdm_tx.png" width="73%"> 
 </p>
 *Figure 1: OFDM transmitter schematic*
 
@@ -78,7 +78,7 @@ where:
 - **QAM demodulation and estimation** is performed to recover the original data
 
 <p align="center">
-<img src="./images/ofdm_rx.png">
+<img src="./images/ofdm_rx.png" width="73%">
 </p>
 *Figure 2: OFDM receiver schematic*
 
