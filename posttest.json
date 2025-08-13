@@ -1,0 +1,175 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "A major drawback of OFDM is:",
+      "answers": {
+        "a": "High out-of-band radiation",
+        "b": "High Peak-to-Average Power Ratio (PAPR)",
+        "c": "Requires time synchronization only",
+        "d": "Inability to handle multipath fading"
+      },
+      "explanations": {
+        "a": "Incorrect. OFDM has relatively low out-of-band radiation due to pulse shaping.",
+        "b": "Correct. OFDM signals have high PAPR, which stresses power amplifiers.",
+        "c": "Incorrect. OFDM requires both time and frequency synchronization.",
+        "d": "Incorrect. OFDM is specifically designed to handle multipath fading."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which of the following techniques is used to reduce PAPR in OFDM?",
+      "answers": {
+        "a": "Zero forcing",
+        "b": "Clipping and filtering",
+        "c": "MMSE equalization",
+        "d": "Adding longer cyclic prefix"
+      },
+      "explanations": {
+        "a": "Incorrect. Zero forcing is an equalization technique, not for PAPR reduction.",
+        "b": "Correct. Clipping and filtering are common PAPR reduction methods.",
+        "c": "Incorrect. MMSE equalization targets noise, not PAPR.",
+        "d": "Incorrect. Increasing cyclic prefix length does not reduce PAPR."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Why is a cyclic prefix used instead of a simple zero-padding in OFDM?",
+      "answers": {
+        "a": "It simplifies time synchronization",
+        "b": "It reduces PAPR",
+        "c": "It preserves circular convolution structure, enabling diagonalization via FFT",
+        "d": "It increases spectral efficiency"
+      },
+      "explanations": {
+        "a": "Incorrect. CP mainly helps with ISI, not synchronization.",
+        "b": "Incorrect. CP does not reduce PAPR.",
+        "c": "Correct. CP maintains circular convolution so the channel appears diagonal in frequency domain.",
+        "d": "Incorrect. CP slightly reduces spectral efficiency."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "The number of subcarriers in an OFDM system is typically:",
+      "answers": {
+        "a": "Prime number",
+        "b": "Very large to reduce delay",
+        "c": "A power of 2 for efficient FFT implementation",
+        "d": "Equal to the modulation order"
+      },
+      "explanations": {
+        "a": "Incorrect. Prime numbers are not used for FFT size.",
+        "b": "Incorrect. Large number of subcarriers reduce bandwidth per subcarrier, not delay.",
+        "c": "Correct. Powers of 2 optimize FFT/IFFT computational efficiency.",
+        "d": "Incorrect. Modulation order and number of subcarriers are unrelated."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "OFDM achieves robustness to frequency-selective fading primarily because:",
+      "answers": {
+        "a": "It transmits in the time domain only",
+        "b": "It averages fading over multiple antennas",
+        "c": "Each subcarrier sees flat fading due to narrowband nature",
+        "d": "It uses non-coherent modulation"
+      },
+      "explanations": {
+        "a": "Incorrect. OFDM modulates data in frequency domain as well.",
+        "b": "Incorrect. Diversity techniques achieve this, not OFDM alone.",
+        "c": "Correct. Narrowband subcarriers simplify fading to flat fading.",
+        "d": "Incorrect. OFDM can use coherent modulation schemes."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What does 'orthogonal' refer to in OFDM?",
+      "answers": {
+        "a": "The sub-carriers are all orthogonal to each other, which can mitigate inter-carrier interference (ICI)",
+        "b": "The basis signals used to perform QAM encoding are orthogonal",
+        "c": "Both of the above",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Correct. Orthogonality between subcarriers prevents interference between them.",
+        "b": "Incorrect. QAM signals are not necessarily orthogonal.",
+        "c": "Incorrect. Only (a) is correct.",
+        "d": "Incorrect. (a) is correct."
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which one of the following is NOT correct in the context of OFDM?",
+      "answers": {
+        "a": "We consider flat fading over the channel corresponding to each sub-carrier",
+        "b": "We consider flat fading over the entire channel",
+        "c": "This scheme provides efficient bandwidth usage",
+        "d": "This scheme can be used in a MIMO system to achieve frequency as well as spatial multiplexing"
+      },
+      "explanations": {
+        "a": "Correct. OFDM splits the channel into flat-fading subchannels.",
+        "b": "Correct answer. Entire channel experiences frequency-selective fading, not flat fading.",
+        "c": "Correct. OFDM efficiently uses bandwidth via orthogonal subcarriers.",
+        "d": "Correct. OFDM combined with MIMO achieves spatial and frequency multiplexing."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the length of the FIR of the channel?",
+      "answers": {
+        "a": "N",
+        "b": "N+μ",
+        "c": "N+μ-1",
+        "d": "μ"
+      },
+      "explanations": {
+        "a": "Incorrect. N usually denotes number of subcarriers or samples.",
+        "b": "Incorrect. This is not the standard FIR length.",
+        "c": "Incorrect. This is related to convolution length but not FIR length alone.",
+        "d": "Correct. μ typically denotes the channel impulse response length."
+      },
+      "correctAnswer": "d",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "What is the rate of this scheme (in no. of QAM symbols per sampling time)?",
+      "answers": {
+        "a": "N+μ",
+        "b": "μ",
+        "c": "N",
+        "d": "None of the above"
+      },
+      "explanations": {
+        "a": "Incorrect. Rate does not increase with CP length.",
+        "b": "Incorrect. μ is CP length, not rate.",
+        "c": "Correct. The effective rate corresponds to number of subcarriers N.",
+        "d": "Incorrect. (c) is correct."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which of the following is correct?",
+      "answers": {
+        "a": "Channel state information (CSI) at the transmitter is necessary for this scheme to be effective",
+        "b": "Choosing a larger number of sub-carriers will lead to more accurate (less errors) communication",
+        "c": "If too many sub-carriers are used, it might lead to inter-carrier interference (ICI)",
+        "d": "Cyclic prefix is mandatory even if this scheme is implemented in continuous time"
+      },
+      "explanations": {
+        "a": "Incorrect. CSI at the transmitter is not mandatory for OFDM.",
+        "b": "Incorrect. Increasing subcarriers can reduce bandwidth per subcarrier but not always reduce errors.",
+        "c": "Correct. Excessive subcarriers may violate orthogonality and increase ICI.",
+        "d": "Incorrect. CP is only necessary in discrete-time implementations with multipath."
+      },
+      "correctAnswer": "c",
+      "difficulty": "intermediate"
+    }
+  ]
+}
