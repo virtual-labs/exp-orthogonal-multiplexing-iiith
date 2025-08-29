@@ -9,7 +9,14 @@ $$
 s(t) = \sum_{i=0}^{N-1} s_i g(t) \cos(2\pi f_i t + \phi_i)
 $$
 
-where, $g(t)$ is the pulse shaping waveform, which has a bandwidth of $B_N$. The carrier frequencies are given by $f_k=f_0+(k-1)B_N, \, k=1,\dots,N$. The total bandwidth of the transmitted signal is hence, $B=NB_N$ and the subcarrier spacing is $\Delta f = B_N$.
+where, $g(t)$ is the pulse shaping waveform, which has a bandwidth of $B_N$. The carrier frequencies are given by $f_k=f_0+(k-1)B_N, \, k=1,\dots,N$. 
+
+<p align="center">
+<img src="./images/OFDM_subcarriers.png" width="40%"> 
+</p>
+
+
+The total bandwidth of the transmitted signal is hence, $B=NB_N$ and the subcarrier spacing is $\Delta f = B_N$.
 
 $^†$ In a wireless channel it is in generally true that higher frequency EM waves are absorbed more by obstacles than those of lower frequency. This means the higher frequency signals are attenuated more. This gives the wireless channel a low-pass characteristic. We know that if we reduce the bandwidth of a signal (for ex., by passing it through a low-pass filter), it spreads in time, thereby leading to intersymbol interference.
 
@@ -57,7 +64,7 @@ $$
 <p align="center">
 <img src="./images/ofdm_tx.png" width="73%"> 
 </p>
-*Figure 1: OFDM transmitter schematic*
+
 
 
 ## Channel
@@ -100,7 +107,7 @@ where:
 <p align="center">
 <img src="./images/ofdm_rx.png" width="73%">
 </p>
-*Figure 2: OFDM receiver schematic*
+
 
 ## †† Cyclic Prefix
 
