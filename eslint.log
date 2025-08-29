@@ -1,0 +1,9 @@
+
+/home/runner/work/exp-orthogonal-multiplexing-iiith/exp-orthogonal-multiplexing-iiith/experiment/simulation/js/main.js
+  214:11  warning  'originalHeight' is assigned a value but never used  no-unused-vars
+  436:16  warning  'handleNext' is defined but never used               no-unused-vars
+  447:10  warning  'handlePrevious' is defined but never used           no-unused-vars
+  457:10  warning  'resetSimulation' is defined but never used          no-unused-vars
+
+✖ 4 problems (0 errors, 4 warnings)
+
