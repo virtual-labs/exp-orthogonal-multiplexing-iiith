@@ -1,3 +1,29 @@
+We first motivate the use of OFDM by a discussion on inter-symbol interference in frequency-selective fading channels and how multi-carrier modulation can be used to overcome it.
+
+## Background
+As the bandwidth of the signal used for communication increases, it becomes impractical to assume that the channel has a constant (flat) frequency response for the entire bandwidth of the signal. We will therefore have to account for the frequency-selective nature of the channel. One of the major consequences of this is intersymbol interference, caused by distortion (spreading) of the transmitted pulses $^†$.
+
+Multicarrier modulation is one method of mitigating ISI. In this scheme, the channel is divided into multiple subcarriers (carrier signals occupying distinct frequency bands), such that the fading on each subcarrier can be assumed to be flat. Mathematically,
+
+$$
+s(t) = \sum_{i=0}^{N-1} s_i g(t) \cos(2\pi f_i t + \phi_i)
+$$
+
+where, $g(t)$ is the pulse shaping waveform, which has a bandwidth of $B_N$. The carrier frequencies are given by $f_k=f_0+(k-1)B_N, \, k=1,\dots,N$. 
+
+<p align="center">
+<img src="./images/OFDM_subcarriers.png" width="40%"> 
+</p>
+
+
+The total bandwidth of the transmitted signal is hence, $B=NB_N$ and the subcarrier spacing is $\Delta f = B_N$.
+
+$^†$ In a wireless channel it is in generally true that higher frequency EM waves are absorbed more by obstacles than those of lower frequency. This means the higher frequency signals are attenuated more. This gives the wireless channel a low-pass characteristic. We know that if we reduce the bandwidth of a signal (for ex., by passing it through a low-pass filter), it spreads in time, thereby leading to intersymbol interference.
+
+How exactly this scheme leads to ISI mitigation will be explained in the section on the OFDM transmitter. Now we are ready to talk about how OFDM is implemented as a form of multicarrier modulation.
+
+## OFDM scheme
+
 We start with a data stream that is encoded using a **QAM constellation**, resulting in a complex symbol stream.  
 This set of symbols will now be sent across a set of narrowband channels.
 
@@ -15,7 +41,8 @@ These are effectively the discrete frequency components of the modulator output 
 
 These symbols are passed through:
 
-- A **series-to-parallel converter**
+- A **series-to-parallel converter**. (The symbols are placed in different subcarriers (parallel) instead of different slots within a single coherence time (series). Hence, each symbol occupies the entire symbol time, but in its respective frequency band. Since the symbols are better spaced in time, ISI is mitigated.)
+
 - Followed by an **N-point IFFT** to convert them into time-domain samples:
 
 $$
@@ -27,7 +54,7 @@ $$
 ### 2. Parallel-to-Series and Cyclic Prefix
 
 - The time-domain samples are **converted back to serial form**
-- A **cyclic prefix** of length \( \mu \) is added (†)
+- A **cyclic prefix** of length \( \mu \) is added ††
 
 ### 3. Digital-to-Analog and RF Modulation
 
@@ -37,7 +64,7 @@ $$
 <p align="center">
 <img src="./images/ofdm_tx.png" width="73%"> 
 </p>
-*Figure 1: OFDM transmitter schematic*
+
 
 
 ## Channel
@@ -80,9 +107,9 @@ where:
 <p align="center">
 <img src="./images/ofdm_rx.png" width="73%">
 </p>
-*Figure 2: OFDM receiver schematic*
 
-## Cyclic Prefix
+
+## †† Cyclic Prefix
 
 The **cyclic prefix** is added to convert the **linear convolution** from the channel into a **circular convolution**, which is compatible with the DFT framework.
 
