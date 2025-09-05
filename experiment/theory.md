@@ -115,7 +115,7 @@ where $H[i]$ is the channel response (flat-fading channel) of the $i$-th subcarr
 
 $$
 \begin{equation}
-   \hat{X}[i] = \frac{Y[i]}{H[i]}
+   \hat{X}[i] = \frac{Y[i]}{H[i]}\nonumber
 \end{equation}
 $$
 
@@ -126,6 +126,3 @@ and this estimated sequence can be further decoded to recover the transmitted bi
 - The estimated sequnce $\hat{X}$ is **converted to serial** and **QAM demodulation** of each symbol can be performed to recover the original data.
 
 
-
-
-> *Further mathematical details have been omitted.*
