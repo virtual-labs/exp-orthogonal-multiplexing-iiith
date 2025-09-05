@@ -25,6 +25,14 @@ In the following, we describe the baseband implementation of transmitter and rec
 
 ## Transmitter
 
+The OFDM transmitter schematic is as shown below. Details of each block have been explained in the forthcoming sections. 
+
+<p align="center">
+<img src="./images/ofdm_tx.png" width="73%"> 
+</p>
+
+
+
 ### 1. Symbol mapping
 
 We start with a data stream that is encoded using a **QAM constellation**, resulting in a complex symbol stream. This set of symbols needs to be sent across the $N$ sub-carriers. We denote this sequence by:
@@ -59,10 +67,6 @@ $$\tilde{X}=[ X[N-\mu-1], \dots, X[N-1], X[0], X[1], \dots, X[N-1]]$$
 - The resulting signal is **converted to analog (D/A)**
 - Modulated using a carrier frequency $f_c$
 
-<p align="center">
-<img src="./images/ofdm_tx.png" width="73%"> 
-</p>
-
 
 
 ## Channel
@@ -88,6 +92,14 @@ Note that the above expression is applicable afer the removal of CP.
 
 ## Receiver
 
+The OFDM receiver schematic is as shown below. Details of each block have been explained in the forthcoming sections. 
+
+<p align="center">
+<img src="./images/ofdm_rx .png" width="73%">
+</p>
+
+
+
 ### 1. Cyclic Prefix Removal and FFT
 
 - Removal of **cyclic prefix** : The first $\mu$ samples are **removed** from the sequnce $y[n]$.
@@ -112,9 +124,7 @@ and this estimated sequence can be further decoded to recover the transmitted bi
 ### 2. QAM Demodulation
 
 - The estimated sequnce $\hat{X}$ is **converted to serial** and **QAM demodulation** of each symbol can be performed to recover the original data.
-<p align="center">
-<img src="./images/ofdm_rx.png" width="73%">
-</p>
+
 
 
 
