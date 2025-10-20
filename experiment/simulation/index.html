@@ -2,51 +2,244 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Interactive OFDM Lab</title>
-    <link rel="stylesheet" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFDM Virtual Experiment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
     <div class="container">
-        <!-- Input Column -->
-        <div class="column input-column">
-            <h2>Input Parameters</h2>
-            <div class="input-group"><label for="subcarriers">Subcarriers (N):</label><input type="number" id="subcarriers" min="8" max="256" value="16" step="2"></div>
-            <div class="input-group"><label for="modulation">Modulation:</label><select id="modulation"><option value="2">BPSK</option><option value="4" selected>QPSK</option><option value="16">16-QAM</option><option value="64">64-QAM</option></select></div>
-            <div class="input-group"><label for="channelLength">Channel Length (μ):</label><input type="number" id="channelLength" min="1" max="16" value="3"></div>
-            <div class="input-group"><label for="cpLength">Cyclic Prefix (Lcp):</label><input type="number" id="cpLength" min="0" max="32" value="4"></div>
-            <div class="input-group"><label for="snr">SNR (dB):</label><input type="number" id="snr" min="-10" max="40" value="20"></div>
-            <button class="main-button" onclick="resetSimulation()">Start New Simulation</button>
-            <div class="info-box"><strong>OFDM Principle:</strong><br>A high-rate data stream is split into N lower-rate streams. A <strong>Cyclic Prefix (CP)</strong> is added to eliminate Inter-Symbol Interference (ISI), provided <strong>Lcp ≥ μ-1</strong>. This simplifies channel equalization.</div>
-        </div>
-
-        <!-- Simulation Column -->
-        <div class="column simulation-column">
-            <h2 id="simulationTitle">OFDM Transmission Chain</h2>
-            <div id="statusBar">Click "Start" to begin.</div>
-            <canvas id="blockDiagram" width="800" height="100"></canvas>
-            <div id="stageDisplay"></div>
-            <div id="navigation">
-                <button id="prevButton" class="nav-button" onclick="handlePrevious()">Previous</button>
-                <button id="nextButton" class="nav-button" onclick="handleNext()">Next</button>
+        <div class="w-full col-span-full">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">OFDM Virtual Experiment</h2>
+            <div class="tab-nav">
+                <button class="tab-link active" onclick="openTab(event, 'simulationTab')">Signal Flow Simulation</button>
+                <button class="tab-link" onclick="openTab(event, 'berAnalysisTab')">BER Performance Analysis</button>
             </div>
         </div>
+        <div id="simulationTab" class="tab-content" style="display: block;">
+          
+            <div class="columns is-centered" style="margin-bottom: 20px;">
+                <div class="v-collapsible-instruction-container v-instruction-container">
+                    <div class="v-collapsible is-size-5" style="text-align: center; width: 100%; display: block;">Instructions</div>
+                    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                        <ol>
+                            <li><strong>Getting Started:</strong> This simulation demonstrates the complete OFDM (Orthogonal Frequency Division Multiplexing) signal processing chain from transmitter to receiver.</li>
+                            <li><strong>Configure Parameters:</strong> Set the FFT size (N), number of data subcarriers, modulation scheme (BPSK/QPSK/16-QAM), cyclic prefix length, SNR, and equalization method.</li>
+                            <li><strong>Run Simulation:</strong> Click "Run Simulation" to process the OFDM signal through the complete transmit-receive chain.</li>
+                            <li><strong>Navigate Through Blocks:</strong> Use "Next" and "Previous" buttons to step through each processing block (S/P+Mapping → IDFT → Add CP → Channel → AWGN → Remove CP → FFT → Equalizer → Demapping+P/S).</li>
+                            <li><strong>Observe Block Diagram:</strong> Watch as each block in the flow diagram highlights to show the current processing stage.</li>
+                            <li><strong>Analyze Outputs:</strong> View the constellation diagrams showing transmitted and received symbols, and examine the frequency spectrum at different stages.</li>
+                            <li><strong>Understand Impact:</strong> Observe how channel effects and noise affect the signal, and how equalization recovers the transmitted data.</li>
+                            <li><strong>Experiment:</strong> Try different modulation schemes, SNR values, and equalization methods to understand their impact on signal quality.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Output Column -->
-        <div class="column output-column">
-            <h2>Analysis Results</h2>
-            <div class="output-item"><div class="output-label">Bit Error Rate (BER)</div><div class="output-value" id="outputBER">N/A</div></div>
-            <div class="output-item"><div class="output-label">Total Bits</div><div class="output-value" id="outputTotalBits">N/A</div></div>
-            <div class="output-item"><div class="output-label">Error Bits</div><div class="output-value" id="outputErrorBits">N/A</div></div>
-            <div class="output-item"><div class="output-label">Spectral Efficiency</div><div class="output-value" id="spectralEfficiency">N/A</div></div>
-            <div class="output-item"><div class="output-label">PAPR</div><div class="output-value" id="papr">N/A</div></div>
-            <div class="info-box"><strong>Observations:</strong><br>• As <strong>SNR decreases</strong>, the received points scatter, increasing BER.<br>• If <strong>Lcp < μ-1</strong>, ISI occurs, causing severe distortion.<br>• Higher-order modulation requires higher SNR for the same BER.</div>
+            <div class="main-content-grid">
+                <div class="input-section">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Step-by-Step Controls</h3>
+                    <div class="input-group">
+                        <label for="nFFTSize">FFT Size (N):</label>
+                        <input type="number" id="nFFTSize" value="64" min="16" step="16">
+                    </div>
+                    <div class="input-group">
+                        <label for="numSubcarriers">Number of Data Subcarriers:</label>
+                        <input type="number" id="numSubcarriers" value="52" min="12" step="4">
+                    </div>
+                    <div class="input-group">
+                        <label for="modulationScheme">Modulation Scheme:</label>
+                        <select id="modulationScheme">
+                            <option value="BPSK">BPSK</option>
+                            <option value="QPSK">QPSK</option>
+                            <option value="16QAM">16-QAM</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="cpLength">Cyclic Prefix Length:</label>
+                        <input type="number" id="cpLength" value="16" min="4" step="4">
+                    </div>
+                    <div class="input-group">
+                        <label for="snrDb">SNR (dB) for Plots:</label>
+                        <input type="number" id="snrDb" value="20" min="-10" max="50" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="equalization">Equalization Method:</label>
+                        <select id="equalization">
+                            <option value="ZF">Zero-Forcing (ZF)</option>
+                            <option value="MMSE">MMSE</option>
+                        </select>
+                    </div>
+                    <button id="runStepByStepBtn" class="button-primary">Run Simulation</button>
+                    <div id="loadingSpinner" class="loading-spinner"></div>
+                    <div id="errorMessage" class="error-message"></div>
+                </div>
+                <div class="simulation-area">
+                    <h3 class="text-xl font-bold text-center text-gray-800 mb-4">OFDM Signal Flow</h3>
+                    <div class="block-diagram-container">
+                    <svg id="ofdmBlockDiagram" viewBox="0 0 490 240" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#1e293b" />
+                            </marker>
+                            <style>
+                                .ofdm-block { fill: #e0e7ff; stroke: #3b82f6; stroke-width: 2; }
+                                .ofdm-block-text { font-family: Arial, sans-serif; font-size: 12px; text-anchor: middle; dominant-baseline: middle; fill: #1e293b; }
+                                .arrow { stroke: #1e293b; stroke-width: 2; marker-end: url(#arrowhead); fill: none; }
+                                .arrowhead { fill: #1e293b; }
+                            </style>
+                        </defs>
+                        
+                        <!-- Top row: Transmitter blocks with uniform 20px spacing -->
+                        <rect id="block-tx" class="ofdm-block" x="10" y="10" width="90" height="45" rx="6"></rect>
+                        <text class="ofdm-block-text" x="55" y="27">S/P</text>
+                        <text class="ofdm-block-text" x="55" y="42">+ Mapping</text>
+                        
+                        <line id="mapping-to-idft" class="arrow" x1="100" y1="32.5" x2="120" y2="32.5" />
+                        
+                        <rect id="block-idft" class="ofdm-block" x="120" y="10" width="90" height="45" rx="6"></rect>
+                        <text class="ofdm-block-text" x="165" y="32.5">IDFT</text>
+                        
+                        <line id="idft-to-addcp" class="arrow" x1="210" y1="32.5" x2="230" y2="32.5" />
+                        
+                        <rect id="block-addcp" class="ofdm-block" x="230" y="10" width="90" height="45" rx="6"></rect>
+                        <text class="ofdm-block-text" x="275" y="32.5">Add CP</text>
+                        
+                        <!-- Channel block aligned with uniform spacing -->
+                        <rect id="block-channel" class="ofdm-block" x="340" y="75" width="90" height="45" rx="6"></rect>
+                        <text class="ofdm-block-text" x="385" y="97.5">Channel</text>
+                        
+                        <!-- AWGN summer symbol positioned between Channel and Remove CP -->
+                        <circle cx="385" cy="140" r="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                        <line x1="379" y1="140" x2="391" y2="140" stroke="#1e293b" stroke-width="1.5"/>
+                        <line x1="385" y1="134" x2="385" y2="146" stroke="#1e293b" stroke-width="1.5"/>
+                        
+                        <!-- AWGN noise source -->
+                        <line class="arrow" x1="340" y1="140" x2="370" y2="140" />
+                        <text class="ofdm-block-text" x="320" y="141">AWGN</text>
+
+                        <!-- Bottom row: Receiver blocks with uniform 20px spacing -->
+                        <rect id="block-rx" class="ofdm-block" x="10" y="180" width="90" height="45" rx="6"></rect>
+                        <text class="ofdm-block-text" x="55" y="197">Demapping</text>
+                        <text class="ofdm-block-text" x="55" y="212">+ P/S</text>
+                        
+                        <line id="equalizer-to-demapping" class="arrow" x1="120" y1="202.5" x2="100" y2="202.5" />
+                        
+                        <rect id="block-equalizer" class="ofdm-block" x="120" y="180" width="90" height="45" rx="6"></rect>
+                        <text class="ofdm-block-text" x="165" y="202.5">Equalizer</text>
+                        
+                        <line id="fft-to-equalizer" class="arrow" x1="230" y1="202.5" x2="210" y2="202.5" />
+                        
+                        <rect id="block-fft" class="ofdm-block" x="230" y="180" width="90" height="45" rx="6"></rect>
+                        <text class="ofdm-block-text" x="275" y="202.5">FFT</text>
+                        
+                        <line id="removecp-to-fft" class="arrow" x1="340" y1="202.5" x2="320" y2="202.5" />
+                        
+                        <rect id="block-removecp" class="ofdm-block" x="340" y="180" width="90" height="45" rx="6"></rect>
+                        <text class="ofdm-block-text" x="385" y="202.5">Remove CP</text>
+                        
+                        <!-- Connecting arrows with updated positions -->
+                        <polyline id="addcp-to-channel" class="arrow" points="320,32.5 385,32.5 385,75" />
+                        <line id="channel-to-awgn" class="arrow" x1="385" y1="120" x2="385" y2="128" />
+                        <line id="awgn-to-removecp" class="arrow" x1="385" y1="152" x2="385" y2="180" />
+                    </svg>
+                    </div>
+
+                    <div class="simulation-info">
+                        <h3 id="blockOutputTitle">Simulation Step Output</h3>
+                        <div id="symbolDisplay" class="symbol-display" style="display: none;"></div>
+                        <p id="blockOutputDisplay">Run a simulation to see the step-by-step output here.</p>
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button id="prevBlockBtn" class="button-primary" disabled>Previous</button>
+                        <button id="nextBlockBtn" class="button-primary" disabled>Next</button>
+                    </div>
+                </div>
+                <div class="output-area">
+                    <!-- Chart containers for simulation tab -->
+                    <div class="chart-container">
+                        <h3 class="chart-title" id="constellationChartTitle">Transmitted Constellation</h3>
+                        <canvas id="constellationChart"></canvas>
+                    </div>
+                    <div class="chart-container" style="display: none;">
+                        <h3 class="chart-title" id="preChannelSpectrumChartTitle">Pre-Channel Spectrum</h3>
+                        <canvas id="preChannelSpectrumChart"></canvas>
+                    </div>
+                    <div class="chart-container" style="display: none;">
+                        <h3 class="chart-title" id="postChannelSpectrumChartTitle">Post-Channel Spectrum</h3>
+                        <canvas id="postChannelSpectrumChart"></canvas>
+                    </div>
+                    <div class="chart-container" style="display: none;">
+                        <h3 class="chart-title" id="equalizedSpectrumChartTitle">Equalized Signal Spectrum</h3>
+                        <canvas id="equalizedSpectrumChart"></canvas>
+                    </div>
+                    <div class="chart-container" style="display: none;">
+                        <h3 class="chart-title" id="receivedConstellationChartTitle">Received Constellation</h3>
+                        <canvas id="receivedConstellationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="berAnalysisTab" class="tab-content" style="display: none;"> 
+            <div class="columns is-centered" style="margin-bottom: 20px;">
+                <div class="v-collapsible-instruction-container v-instruction-container">
+                    <div class="v-collapsible is-size-5" style="text-align: center; width: 100%; display: block;">Instructions</div>
+                    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                        <ol>
+                            <li><strong>Getting Started:</strong> This simulation analyzes the Bit Error Rate (BER) performance of OFDM systems across different Signal-to-Noise Ratio (SNR) values.</li>
+                            <li><strong>Configure OFDM Parameters:</strong> Set the length of OFDM data (L) and cyclic prefix length (Ncp) to define your OFDM symbol structure.</li>
+                            <li><strong>Select Modulation:</strong> Choose the modulation scheme (BPSK, QPSK, or 16-QAM) to analyze its BER performance characteristics.</li>
+                            <li><strong>Define SNR Range:</strong> Set the SNR increment (in dB) to determine the granularity of the performance curve. Smaller increments provide more detailed curves but take longer to compute.</li>
+                            <li><strong>Run BER Simulation:</strong> Click "Run BER Simulation" to compute BER values across multiple SNR points using Monte Carlo simulation.</li>
+                            <li><strong>Analyze Performance Curve:</strong> Examine the BER vs. SNR plot to understand how error rate decreases as signal quality improves.</li>
+                            <li><strong>Compare Modulations:</strong> Run simulations with different modulation schemes to observe the trade-off between spectral efficiency and error performance.</li>
+                            <li><strong>Understand Trade-offs:</strong> Higher-order modulations (16-QAM) offer greater data rates but require higher SNR for the same BER compared to lower-order schemes (BPSK).</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content-grid">
+                <div class="input-section">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">BER Simulation Controls</h3>
+                    <div class="input-group">
+                        <label for="ber_ofdmLength">Length of OFDM Data (L):</label>
+                        <input type="number" id="ber_ofdmLength" value="64" min="16" step="16">
+                    </div>
+                    <div class="input-group">
+                        <label for="ber_cpLength">Cyclic Prefix Length (Ncp):</label>
+                        <input type="number" id="ber_cpLength" value="4" min="1" max="16">
+                    </div>
+                    <div class="input-group">
+                        <label for="ber_modulationScheme">Modulation Scheme:</label>
+                        <select id="ber_modulationScheme">
+                            <option value="16QAM" selected>16-QAM</option>
+                            <option value="QPSK">QPSK</option>
+                            <option value="BPSK">BPSK</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="ber_snrIncrement">SNR Increment (dB):</label>
+                        <input type="number" id="ber_snrIncrement" value="1" min="0.5" max="5" step="0.5">
+                    </div>
+                    <button id="runBerSimBtn" class="button-primary">Run BER Simulation</button>
+                    <div id="loadingSpinnerBER" class="loading-spinner"></div>
+                    <div id="errorMessageBER" class="error-message"></div>
+                </div>
+                
+                <div class="w-full" style="grid-column: 2 / -1;">
+                    <div class="chart-container" style="display: none;">
+                        <h3 class="chart-title" id="berCurveChartTitle">BER vs. SNR Performance</h3>
+                        <canvas id="berCurveChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Load external libraries first -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="./js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
-    <script src="js/main.js"></script>
 </body>
 </html>
