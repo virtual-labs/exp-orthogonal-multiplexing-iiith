@@ -421,6 +421,13 @@ async function runStepByStepSimulation() {
         const channelPadded = [...channelCoeffs];
         while (channelPadded.length < nFFTSize) channelPadded.push(new Complex(0));
         globalChannelGainsFFT = fft(channelPadded);
+
+        // Plot channel delay response (tap magnitudes)
+        updateChannelDelayResponseChart(channelCoeffs);
+
+        // Plot channel frequency response
+        updateChannelFrequencyResponseChart(globalChannelGainsFFT);
+
         globalReceivedSymbols = equalize(globalRxFFTOutput, globalChannelGainsFFT, equalizationMethod, snrDb);
 
         // --- 6. PLOTTING LOGIC (with error color-coding) ---
@@ -486,6 +493,29 @@ async function runStepByStepSimulation() {
     } finally {
         document.getElementById('loadingSpinner').style.display = 'none';
     }
+}
+
+function updateChannelDelayResponseChart(channelCoeffs) {
+    if (!channelDelayResponseChart || !channelCoeffs) return;
+    
+    const tapMagnitudes = channelCoeffs.map(c => c.mag());
+    const tapIndices = channelCoeffs.map((_, i) => i);
+    
+    channelDelayResponseChart.data.labels = tapIndices;
+    channelDelayResponseChart.data.datasets[0].data = tapMagnitudes;
+    channelDelayResponseChart.update();
+}
+
+function updateChannelFrequencyResponseChart(channelGainsFFT) {
+    if (!channelFrequencyResponseChart || !channelGainsFFT) return;
+    
+    const shifted = fftshift(channelGainsFFT);
+    const magnitudesDb = shifted.map(c => linearToDb(c.magSq()));
+    const normalizedFreq = shifted.map((_, i) => (i - shifted.length / 2) / shifted.length);
+    
+    channelFrequencyResponseChart.data.labels = normalizedFreq.map(f => f.toFixed(3));
+    channelFrequencyResponseChart.data.datasets[0].data = magnitudesDb;
+    channelFrequencyResponseChart.update();
 }
 
 // --- Add this new helper function to your main script ---
@@ -992,7 +1022,8 @@ function getArrowId(fromIndex, toIndex) {
 function hideStepByStepCharts() {
     const stepByStepCharts = [
         'constellationChart', 'preChannelSpectrumChart', 
-        'postChannelSpectrumChart', 'receivedConstellationChart'
+        'postChannelSpectrumChart', 'receivedConstellationChart',
+        'channelDelayResponseChart', 'channelFrequencyResponseChart'
     ];
     
     stepByStepCharts.forEach(chartId => {
@@ -1015,7 +1046,8 @@ function updateChartVisibility(blockIndex) {
     const allChartContainers = [
         'constellationChart', 'preChannelSpectrumChart', 
         'postChannelSpectrumChart', 'receivedConstellationChart',
-        'equalizedSpectrumChart' // <-- FIX: Added the new chart here
+        'equalizedSpectrumChart', 'channelDelayResponseChart', 
+        'channelFrequencyResponseChart'
     ];
     
     allChartContainers.forEach(chartId => {
@@ -1033,6 +1065,8 @@ function updateChartVisibility(blockIndex) {
             break;
         case 'block-channel':
             document.getElementById('postChannelSpectrumChart').parentElement.style.display = 'block';
+            document.getElementById('channelDelayResponseChart').parentElement.style.display = 'block';
+            document.getElementById('channelFrequencyResponseChart').parentElement.style.display = 'block';
             break;
         case 'block-equalizer':
             document.getElementById('equalizedSpectrumChart').parentElement.style.display = 'block';
@@ -1228,7 +1262,7 @@ function updateBlockOutputDisplayContent(blockIndex) {
 }
 
 function clearAllChartData() {
-    const charts = [constellationChart, preChannelSpectrumChart, postChannelSpectrumChart, receivedConstellationChart, equalizedSpectrumChart, berCurveChart];
+    const charts = [constellationChart, preChannelSpectrumChart, postChannelSpectrumChart, receivedConstellationChart, equalizedSpectrumChart, channelDelayResponseChart, channelFrequencyResponseChart, berCurveChart];
     charts.forEach(chart => {
         if (chart) {
             chart.data.labels = [];
@@ -1284,7 +1318,7 @@ function getIdealConstellationPoints(modulationScheme) {
     }
 }
 
-let constellationChart, preChannelSpectrumChart, postChannelSpectrumChart, equalizedSpectrumChart, receivedConstellationChart, berCurveChart;
+let constellationChart, preChannelSpectrumChart, postChannelSpectrumChart, equalizedSpectrumChart, receivedConstellationChart, channelDelayResponseChart, channelFrequencyResponseChart, berCurveChart;
 
 // Updated initializeCharts function for better responsiveness
 function initializeCharts() {
@@ -1301,52 +1335,52 @@ function initializeCharts() {
         }
     };
 
-const canvases = ['constellationChart', 'preChannelSpectrumChart', 'postChannelSpectrumChart', 'receivedConstellationChart', 'equalizedSpectrumChart', 'berCurveChart'];
+    const canvases = ['constellationChart', 'preChannelSpectrumChart', 'postChannelSpectrumChart', 'receivedConstellationChart', 'equalizedSpectrumChart', 'channelDelayResponseChart', 'channelFrequencyResponseChart', 'berCurveChart'];
     canvases.forEach(setCanvasDimensions);
 
-    // --- Find the initializeCharts function and REPLACE the constellationConfig object with this CORRECTED version ---
+        // --- Find the initializeCharts function and REPLACE the constellationConfig object with this CORRECTED version ---
 
-const constellationConfig = {
-    type: 'scatter',
-    data: { datasets: [{ label: 'Constellation Diagram', data: [], backgroundColor: 'rgb(34, 197, 94)', pointRadius: 5, pointHoverRadius: 7 }] },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: { display: false },
-            legend: { display: false },
-            tooltip: { callbacks: { label: c => `(${c.parsed.x.toFixed(2)}, ${c.parsed.y.toFixed(2)}i)` } }
-        },
-        scales: {
-            x: {
-                type: 'linear',
-                position: 'bottom',
-                min: -2,
-                max: 2,
-                title: { display: true, text: 'In-phase (Real)', font: { size: 12, weight: 'bold' }, color: '#4b5563' },
-                grid: {
-                    // --- AXIS HIGHLIGHT (Chart.js v3+) ---
-                    color: context => (context.tick.value === 0 ? '#6b7280' : '#e5e7eb'),
-                    lineWidth: context => (context.tick.value === 0 ? 2 : 1)
-                },
-                ticks: { color: '#6b7280', font: { size: 10 } }
+    const constellationConfig = {
+        type: 'scatter',
+        data: { datasets: [{ label: 'Constellation Diagram', data: [], backgroundColor: 'rgb(34, 197, 94)', pointRadius: 5, pointHoverRadius: 7 }] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: { display: false },
+                legend: { display: false },
+                tooltip: { callbacks: { label: c => `(${c.parsed.x.toFixed(2)}, ${c.parsed.y.toFixed(2)}i)` } }
             },
-            y: {
-                type: 'linear',
-                position: 'left',
-                min: -2,
-                max: 2,
-                title: { display: true, text: 'Quadrature (Imaginary)', font: { size: 12, weight: 'bold' }, color: '#4b5563' },
-                grid: {
-                    // --- AXIS HIGHLIGHT (Chart.js v3+) ---
-                    color: context => (context.tick.value === 0 ? '#6b7280' : '#e5e7eb'),
-                    lineWidth: context => (context.tick.value === 0 ? 2 : 1)
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    min: -2,
+                    max: 2,
+                    title: { display: true, text: 'In-phase (Real)', font: { size: 12, weight: 'bold' }, color: '#4b5563' },
+                    grid: {
+                        // --- AXIS HIGHLIGHT (Chart.js v3+) ---
+                        color: context => (context.tick.value === 0 ? '#6b7280' : '#e5e7eb'),
+                        lineWidth: context => (context.tick.value === 0 ? 2 : 1)
+                    },
+                    ticks: { color: '#6b7280', font: { size: 10 } }
                 },
-                ticks: { color: '#6b7280', font: { size: 10 } }
+                y: {
+                    type: 'linear',
+                    position: 'left',
+                    min: -2,
+                    max: 2,
+                    title: { display: true, text: 'Quadrature (Imaginary)', font: { size: 12, weight: 'bold' }, color: '#4b5563' },
+                    grid: {
+                        // --- AXIS HIGHLIGHT (Chart.js v3+) ---
+                        color: context => (context.tick.value === 0 ? '#6b7280' : '#e5e7eb'),
+                        lineWidth: context => (context.tick.value === 0 ? 2 : 1)
+                    },
+                    ticks: { color: '#6b7280', font: { size: 10 } }
+                }
             }
         }
-    }
-};
+    };
 
     const spectrumConfig = {
         type: 'line',
@@ -1369,6 +1403,55 @@ const constellationConfig = {
             }
         }
     };
+
+    // Add these two new chart configurations after equalizedSpectrumChart initialization
+    const channelDelayResponseConfig = {
+        type: 'line',
+        data: { datasets: [{ data: [], borderWidth: 2, pointRadius: 3, fill: false, tension: 0, borderColor: 'rgb(147, 51, 234)', backgroundColor: 'rgba(147, 51, 234, 0.2)' }] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { 
+                    title: { display: true, text: 'Tap Index', font: { size: 12, weight: 'bold' }, color: '#4b5563' }, 
+                    grid: { color: '#e2e8f0' },
+                    ticks: { font: { size: 10 } }
+                },
+                y: { 
+                    title: { display: true, text: 'Magnitude', font: { size: 12, weight: 'bold' }, color: '#4b5563' }, 
+                    grid: { color: '#e2e8f0' },
+                    ticks: { font: { size: 10 } }
+                }
+            }
+        }
+    };
+
+    const channelFrequencyResponseConfig = {
+        type: 'line',
+        data: { datasets: [{ data: [], borderWidth: 2, pointRadius: 0, fill: false, tension: 0.1, borderColor: 'rgb(236, 72, 153)', backgroundColor: 'rgba(236, 72, 153, 0.2)' }] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { 
+                    title: { display: true, text: 'Normalized Frequency', font: { size: 12, weight: 'bold' }, color: '#4b5563' }, 
+                    grid: { color: '#e2e8f0' },
+                    ticks: { font: { size: 10 } }
+                },
+                y: { 
+                    title: { display: true, text: 'Magnitude (dB)', font: { size: 12, weight: 'bold' }, color: '#4b5563' }, 
+                    grid: { color: '#e2e8f0' },
+                    ticks: { font: { size: 10 } }
+                }
+            }
+        }
+    };
+
+    // After all the chart assignments, add these two:
+    channelDelayResponseChart = new Chart(document.getElementById('channelDelayResponseChart').getContext('2d'), channelDelayResponseConfig);
+    channelFrequencyResponseChart = new Chart(document.getElementById('channelFrequencyResponseChart').getContext('2d'), channelFrequencyResponseConfig);
 
     // Also, in initializeCharts(), replace the berConfig with this:
     const berConfig = {
