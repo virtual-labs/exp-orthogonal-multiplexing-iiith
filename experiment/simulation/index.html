@@ -81,8 +81,8 @@
                     <div class="block-diagram-container">
                     <svg id="ofdmBlockDiagram" viewBox="0 0 490 240" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                                <polygon points="0 0, 10 3.5, 0 7" fill="#1e293b" />
+                            <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#1e293b" />
                             </marker>
                             <style>
                                 .ofdm-block { fill: #e0e7ff; stroke: #3b82f6; stroke-width: 2; }
@@ -97,12 +97,12 @@
                         <text class="ofdm-block-text" x="55" y="27">S/P</text>
                         <text class="ofdm-block-text" x="55" y="42">+ Mapping</text>
                         
-                        <line id="mapping-to-idft" class="arrow" x1="100" y1="32.5" x2="120" y2="32.5" />
+                        <line id="mapping-to-idft" class="arrow" x1="100" y1="32.5" x2="125" y2="32.5" />
                         
                         <rect id="block-idft" class="ofdm-block" x="120" y="10" width="90" height="45" rx="6"></rect>
                         <text class="ofdm-block-text" x="165" y="32.5">IDFT</text>
                         
-                        <line id="idft-to-addcp" class="arrow" x1="210" y1="32.5" x2="230" y2="32.5" />
+                        <line id="idft-to-addcp" class="arrow" x1="210" y1="32.5" x2="235" y2="32.5" />
                         
                         <rect id="block-addcp" class="ofdm-block" x="230" y="10" width="90" height="45" rx="6"></rect>
                         <text class="ofdm-block-text" x="275" y="32.5">Add CP</text>
@@ -125,17 +125,17 @@
                         <text class="ofdm-block-text" x="55" y="197">Demapping</text>
                         <text class="ofdm-block-text" x="55" y="212">+ P/S</text>
                         
-                        <line id="equalizer-to-demapping" class="arrow" x1="120" y1="202.5" x2="100" y2="202.5" />
+                        <line id="equalizer-to-demapping" class="arrow" x1="125" y1="202.5" x2="100" y2="202.5" />
                         
                         <rect id="block-equalizer" class="ofdm-block" x="120" y="180" width="90" height="45" rx="6"></rect>
                         <text class="ofdm-block-text" x="165" y="202.5">Equalizer</text>
                         
-                        <line id="fft-to-equalizer" class="arrow" x1="230" y1="202.5" x2="210" y2="202.5" />
+                        <line id="fft-to-equalizer" class="arrow" x1="235" y1="202.5" x2="210" y2="202.5" />
                         
                         <rect id="block-fft" class="ofdm-block" x="230" y="180" width="90" height="45" rx="6"></rect>
                         <text class="ofdm-block-text" x="275" y="202.5">FFT</text>
                         
-                        <line id="removecp-to-fft" class="arrow" x1="340" y1="202.5" x2="320" y2="202.5" />
+                        <line id="removecp-to-fft" class="arrow" x1="345" y1="202.5" x2="320" y2="202.5" />
                         
                         <rect id="block-removecp" class="ofdm-block" x="340" y="180" width="90" height="45" rx="6"></rect>
                         <text class="ofdm-block-text" x="385" y="202.5">Remove CP</text>
@@ -171,6 +171,14 @@
                     <div class="chart-container" style="display: none;">
                         <h3 class="chart-title" id="postChannelSpectrumChartTitle">Post-Channel Spectrum</h3>
                         <canvas id="postChannelSpectrumChart"></canvas>
+                    </div>
+                    <div class="chart-container" style="display: none;">
+                        <h3 class="chart-title" id="channelDelayResponseChartTitle">Channel Delay Response</h3>
+                        <canvas id="channelDelayResponseChart"></canvas>
+                    </div>
+                    <div class="chart-container" style="display: none;">
+                        <h3 class="chart-title" id="channelFrequencyResponseChartTitle">Channel Frequency Response</h3>
+                        <canvas id="channelFrequencyResponseChart"></canvas>
                     </div>
                     <div class="chart-container" style="display: none;">
                         <h3 class="chart-title" id="equalizedSpectrumChartTitle">Equalized Signal Spectrum</h3>
