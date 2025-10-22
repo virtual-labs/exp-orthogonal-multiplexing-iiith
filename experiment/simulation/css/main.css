@@ -560,32 +560,32 @@ h2 {
     flex-wrap: wrap;
     gap: 3px;
     justify-content: center;
-    align-items: flex-end; /* Changed from flex-start to flex-end */
+    align-items: center; /* Changed from flex-start to flex-end */
     margin-top: 12px;
-    padding: 20px 12px;
+    padding: 12px 12px;
     background-color: #f1f5f9;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
     max-height: 400px;
     overflow-y: auto;
     font-family: 'Menlo', 'Monaco', monospace;
-    min-height: 120px;
+    min-height: 80px;
 }
 
 @media (max-width: 480px) {
     .symbol-display {
-        padding: 12px 8px;
+        padding: 8px 8px;
         gap: 2px;
-        min-height: 100px;
+        min-height: 70px;
         max-height: 300px;
     }
 }
 
 @media (max-width: 360px) {
     .symbol-display {
-        padding: 10px 6px;
+        padding: 6px 6px;
         gap: 2px;
-        min-height: 80px;
+        min-height: 60px;
         max-height: 250px;
     }
 }
