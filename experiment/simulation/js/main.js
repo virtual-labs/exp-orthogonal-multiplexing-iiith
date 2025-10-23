@@ -659,9 +659,9 @@ async function runBerSimulation() {
             for (let symIdx = 0; symIdx < numOfdmSymbols; symIdx++) {
                 // === TRANSMITTER ===
                 const Tx_data = [];
-                for (let i = 0; i < L; i++) {
+                for (let i = 0; i < Ncp; i++) {  // Changed from L to Ncp
                     const row = [];
-                    for (let j = 0; j < Ncp; j++) {
+                    for (let j = 0; j < L; j++) {  // Changed from Ncp to L
                         row.push(Math.floor(Math.random() * (maxSymbolValue + 1)));
                     }
                     Tx_data.push(row);
@@ -713,8 +713,8 @@ async function runBerSimulation() {
                 );
 
                 // === BER CALCULATION ===
-                for (let i = 0; i < L; i++) {
-                    for (let j = 0; j < Ncp; j++) {
+                for (let i = 0; i < Ncp; i++) {  // Changed from L to Ncp (rows)
+                    for (let j = 0; j < L; j++) {  // Changed from Ncp to L (columns)
                         const txSym = Tx_data[i][j];
                         const rxSym = Rx_data[i][j];
                         let diff = txSym ^ rxSym;
