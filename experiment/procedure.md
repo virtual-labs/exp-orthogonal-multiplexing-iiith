@@ -29,7 +29,7 @@ You are allowed to vary the following parameters as part of this simulation:
 ---
 
 > **Note:**  
-> **Channel length (\(\mu\))** – This is the length of the channel impulse response that will be convolved with the transmitted signal to get the output of the channel.  
+> **Channel length \(\mu\)** – This is the length of the channel impulse response that will be convolved with the transmitted signal to get the output of the channel.  
 > In other words, this channel has \(\mu\) delay taps.  
 > For this simulation, this value is **fixed at 5**.
 
