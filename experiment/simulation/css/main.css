@@ -560,32 +560,32 @@ h2 {
     flex-wrap: wrap;
     gap: 3px;
     justify-content: center;
-    align-items: flex-end; /* Changed from flex-start to flex-end */
+    align-items: center; /* Changed from flex-start to flex-end */
     margin-top: 12px;
-    padding: 20px 12px;
+    padding: 12px 12px;
     background-color: #f1f5f9;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
     max-height: 400px;
     overflow-y: auto;
     font-family: 'Menlo', 'Monaco', monospace;
-    min-height: 120px;
+    min-height: 80px;
 }
 
 @media (max-width: 480px) {
     .symbol-display {
-        padding: 12px 8px;
+        padding: 8px 8px;
         gap: 2px;
-        min-height: 100px;
+        min-height: 70px;
         max-height: 300px;
     }
 }
 
 @media (max-width: 360px) {
     .symbol-display {
-        padding: 10px 6px;
+        padding: 6px 6px;
         gap: 2px;
-        min-height: 80px;
+        min-height: 60px;
         max-height: 250px;
     }
 }
@@ -665,8 +665,8 @@ h2 {
     background-color: #ffffff;
     border-radius: 0.75rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    padding: 0.1em;
+    margin-bottom: 0.25rem;
 }
 
 @media (max-width: 480px) {
@@ -688,7 +688,7 @@ h2 {
     font-weight: 600;
     color: #1e293b;
     font-size: 1.25rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -706,7 +706,7 @@ h2 {
 }
 
 .v-content ol {
-    line-height: 1.8;
+    line-height: 1.6;
     color: #334155;
     list-style-type: decimal;
     list-style-position: outside;
@@ -715,7 +715,7 @@ h2 {
 }
 
 .v-content ol li {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
 }
 
 .v-content ol li strong {
