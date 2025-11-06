@@ -501,8 +501,13 @@ function updateChannelDelayResponseChart(channelCoeffs) {
     const tapMagnitudes = channelCoeffs.map(c => c.mag());
     const tapIndices = channelCoeffs.map((_, i) => i);
     
+    // Format data for bar chart to create impulse-like appearance
     channelDelayResponseChart.data.labels = tapIndices;
-    channelDelayResponseChart.data.datasets[0].data = tapMagnitudes;
+    channelDelayResponseChart.data.datasets[0].data = tapIndices.map((idx, i) => ({
+        x: idx,
+        y: tapMagnitudes[i]
+    }));
+    
     channelDelayResponseChart.update();
 }
 
@@ -1404,24 +1409,35 @@ function initializeCharts() {
         }
     };
 
-    // Add these two new chart configurations after equalizedSpectrumChart initialization
     const channelDelayResponseConfig = {
-        type: 'line',
-        data: { datasets: [{ data: [], borderWidth: 2, pointRadius: 3, fill: false, tension: 0, borderColor: 'rgb(147, 51, 234)', backgroundColor: 'rgba(147, 51, 234, 0.2)' }] },
+        type: 'bar', // Changed from 'line' to 'bar'
+        data: { datasets: [{ 
+            data: [], 
+            backgroundColor: 'rgb(147, 51, 234)', 
+            borderColor: 'rgb(147, 51, 234)',
+            borderWidth: 2,
+            barPercentage: 0.1, // Makes bars narrow like impulses
+            categoryPercentage: 0.5
+        }] },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
                 x: { 
+                    type: 'linear', // Changed to linear for precise tap positioning
                     title: { display: true, text: 'Tap Index', font: { size: 12, weight: 'bold' }, color: '#4b5563' }, 
                     grid: { color: '#e2e8f0' },
-                    ticks: { font: { size: 10 } }
+                    ticks: { 
+                        stepSize: 1,
+                        font: { size: 10 }
+                    }
                 },
                 y: { 
                     title: { display: true, text: 'Magnitude', font: { size: 12, weight: 'bold' }, color: '#4b5563' }, 
                     grid: { color: '#e2e8f0' },
-                    ticks: { font: { size: 10 } }
+                    ticks: { font: { size: 10 } },
+                    beginAtZero: true
                 }
             }
         }
