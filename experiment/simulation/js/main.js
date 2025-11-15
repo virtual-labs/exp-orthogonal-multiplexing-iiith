@@ -616,6 +616,19 @@ async function runBerSimulation() {
 
     const L = parseInt(document.getElementById('ber_ofdmLength').value);
     const Ncp = parseInt(document.getElementById('ber_cpLength').value);
+    
+    // ---- INSERT THIS BLOCK HERE ----
+    function isPowerOfTwo(n) {
+        return Number.isInteger(n) && n > 0 && (n & (n - 1)) === 0;
+    }
+
+    if (!isPowerOfTwo(Ncp)) {
+        displayErrorBER('Cyclic Prefix length (Ncp) must be a power of two for the BER FFT routine (e.g. 4, 8, 16).');
+        document.getElementById('loadingSpinnerBER').style.display = 'none';
+        return;
+    }
+    // ---- END OF INSERTED BLOCK ----
+
     const modulationScheme = document.getElementById('ber_modulationScheme').value;
     const SNRincrement = parseFloat(document.getElementById('ber_snrIncrement').value);
     
