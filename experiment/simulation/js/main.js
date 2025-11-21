@@ -1303,12 +1303,26 @@ function resetSimulation() {
     document.getElementById('blockOutputTitle').textContent = "Simulation Step Output";
     document.getElementById('blockOutputDisplay').innerHTML = "Run a simulation to see the step-by-step output here.";
 
+    // Reset simulation tab controls
     document.getElementById('nFFTSize').value = 64;
     document.getElementById('numSubcarriers').value = 52;
     document.getElementById('modulationScheme').value = 'BPSK';
     document.getElementById('cpLength').value = 16;
     document.getElementById('snrDb').value = 20;
-    document.getElementById('numSymbolsBer').value = 1000;
+    document.getElementById('equalization').value = 'ZF';
+    
+    // Reset BER tab controls (if you want to reset those too)
+    document.getElementById('ber_ofdmLength').value = 64;
+    document.getElementById('ber_cpLength').value = 4;
+    document.getElementById('ber_modulationScheme').value = '16QAM';
+    document.getElementById('ber_snrIncrement').value = 1;
+    
+    // Clear symbol display
+    const symbolDisplay = document.getElementById('symbolDisplay');
+    if (symbolDisplay) {
+        symbolDisplay.style.display = 'none';
+        symbolDisplay.innerHTML = '';
+    }
 }
 
 function getIdealConstellationPoints(modulationScheme) {
