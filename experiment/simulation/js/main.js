@@ -420,6 +420,20 @@ async function runStepByStepSimulation() {
     const snrDb = parseFloat(document.getElementById('snrDb').value);
     const equalizationMethod = document.getElementById('equalization').value;
 
+    // **ADD THE VALIDATION HERE - RIGHT AFTER GETTING PARAMETERS**
+    // Validation: numSubcarriers must be less than nFFTSize
+    if (numSubcarriers >= nFFTSize) {
+        displayError('Number of subcarriers must be less than FFT size');
+        document.getElementById('loadingSpinner').style.display = 'none';
+        return;
+    }
+    // Validation: Warn about non-standard configurations
+    if (numSubcarriers > nFFTSize - 2) {
+        displayError('Warning: Number of subcarriers should be significantly less than FFT size for proper null subcarriers');
+        document.getElementById('loadingSpinner').style.display = 'none';
+        return;
+    }
+
     // --- 2. Setup UI ---
     document.getElementById('loadingSpinner').style.display = 'block';
     document.getElementById('errorMessage').style.display = 'none';
@@ -562,7 +576,7 @@ function extractDataSubcarriers(allSymbols, nFFTSize, numSubcarriers) {
     }
 
     if (nFFTSize === 64 && numSubcarriers === 52) {
-        // 802.11a standard subcarrier mapping (matches the mapping function)
+        // 802.11a standard subcarrier mapping
         const subcarrierIndices = [
             -26,-25,-24,-23,-22,-21,-20,-19,-18,-17,-16,-15,-14,-13,-12,-11,
             -10,-9,-8,-7,-6,-5,-4,-3,-2,-1,
@@ -576,23 +590,31 @@ function extractDataSubcarriers(allSymbols, nFFTSize, numSubcarriers) {
             }
         }
     } else {
-        // Generic symmetric extraction
+        // Generic symmetric extraction - must match mapToSubcarriers logic
         const halfSubcarriers = Math.floor(numSubcarriers / 2);
         const extraSubcarrier = numSubcarriers % 2;
         
-        // Positive frequencies
+        // Extract from positive frequencies (indices 1 to halfSubcarriers+extraSubcarrier)
         for (let i = 1; i <= halfSubcarriers + extraSubcarrier && i < nFFTSize; i++) {
-            dataSymbols.push(allSymbols[i]);
+            if (allSymbols[i]) {  // Safety check
+                dataSymbols.push(allSymbols[i]);
+            }
         }
         
-        // Negative frequencies
+        // Extract from negative frequencies (indices nFFTSize-halfSubcarriers to nFFTSize-1)
         for (let i = nFFTSize - halfSubcarriers; i < nFFTSize; i++) {
-            dataSymbols.push(allSymbols[i]);
+            if (allSymbols[i]) {  // Safety check
+                dataSymbols.push(allSymbols[i]);
+            }
         }
     }
     
     if (dataSymbols.length !== numSubcarriers) {
         console.warn(`Subcarrier extraction mismatch: expected ${numSubcarriers}, extracted ${dataSymbols.length}`);
+        // Pad with zeros if we extracted fewer symbols
+        while (dataSymbols.length < numSubcarriers) {
+            dataSymbols.push(new Complex(0, 0));
+        }
     }
     
     return dataSymbols;
