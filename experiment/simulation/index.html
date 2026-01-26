@@ -25,14 +25,14 @@
                     <div class="v-collapsible is-size-5" style="text-align: center; width: 100%; display: block;">Instructions</div>
                     <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
                         <ol>
-                            <li><strong>Getting Started:</strong> This simulation demonstrates the complete OFDM (Orthogonal Frequency Division Multiplexing) signal processing chain from transmitter to receiver.</li>
-                            <li><strong>Configure Parameters:</strong> Set the FFT size (N), number of data subcarriers, modulation scheme (BPSK/QPSK/16-QAM), cyclic prefix length, SNR, and equalization method.</li>
-                            <li><strong>Run Simulation:</strong> Click "Run Simulation" to process the OFDM signal through the complete transmit-receive chain.</li>
-                            <li><strong>Navigate Through Blocks:</strong> Use "Next" and "Previous" buttons to step through each processing block (S/P+Mapping → IDFT → Add CP → Channel → AWGN → Remove CP → FFT → Equalizer → Demapping+P/S).</li>
-                            <li><strong>Observe Block Diagram:</strong> Watch as each block in the flow diagram highlights to show the current processing stage.</li>
-                            <li><strong>Analyze Outputs:</strong> View the constellation diagrams showing transmitted and received symbols, and examine the frequency spectrum at different stages.</li>
-                            <li><strong>Understand Impact:</strong> Observe how channel effects and noise affect the signal, and how equalization recovers the transmitted data.</li>
-                            <li><strong>Experiment:</strong> Try different modulation schemes, SNR values, and equalization methods to understand their impact on signal quality.</li>
+                            <li id="sim-step-1"><strong>Getting Started:</strong> This simulation demonstrates the complete OFDM (Orthogonal Frequency Division Multiplexing) signal processing chain from transmitter to receiver.</li>
+                            <li id="sim-step-2"><strong>Configure Parameters:</strong> Set the FFT size (N), number of data subcarriers, modulation scheme (BPSK/QPSK/16-QAM), cyclic prefix length, SNR, and equalization method.</li>
+                            <li id="sim-step-3"><strong>Run Simulation:</strong> Click "Run Simulation" to process the OFDM signal through the complete transmit-receive chain.</li>
+                            <li id="sim-step-4"><strong>Navigate Through Blocks:</strong> Use "Next" and "Previous" buttons to step through each processing block (S/P+Mapping → IDFT → Add CP → Channel → AWGN → Remove CP → FFT → Equalizer → Demapping+P/S).</li>
+                            <li id="sim-step-5"><strong>Observe Block Diagram:</strong> Watch as each block in the flow diagram highlights to show the current processing stage.</li>
+                            <li id="sim-step-6"><strong>Analyze Outputs:</strong> View the constellation diagrams showing transmitted and received symbols, and examine the frequency spectrum at different stages.</li>
+                            <li id="sim-step-7"><strong>Understand Impact:</strong> Observe how channel effects and noise affect the signal, and how equalization recovers the transmitted data.</li>
+                            <li id="sim-step-8"><strong>Experiment:</strong> Try different modulation schemes, SNR values, and equalization methods to understand their impact on signal quality.</li>
                         </ol>
                     </div>
                 </div>
@@ -197,14 +197,14 @@
                     <div class="v-collapsible is-size-5" style="text-align: center; width: 100%; display: block;">Instructions</div>
                     <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
                         <ol>
-                            <li><strong>Getting Started:</strong> This simulation analyzes the Bit Error Rate (BER) performance of OFDM systems across different Signal-to-Noise Ratio (SNR) values.</li>
-                            <li><strong>Configure OFDM Parameters:</strong> Set the length of OFDM data (L) and cyclic prefix length (Ncp) to define your OFDM symbol structure.</li>
-                            <li><strong>Select Modulation:</strong> Choose the modulation scheme (BPSK, QPSK, or 16-QAM) to analyze its BER performance characteristics.</li>
-                            <li><strong>Define SNR Range:</strong> Set the SNR increment (in dB) to determine the granularity of the performance curve. Smaller increments provide more detailed curves but take longer to compute.</li>
-                            <li><strong>Run BER Simulation:</strong> Click "Run BER Simulation" to compute BER values across multiple SNR points using Monte Carlo simulation.</li>
-                            <li><strong>Analyze Performance Curve:</strong> Examine the BER vs. SNR plot to understand how error rate decreases as signal quality improves.</li>
-                            <li><strong>Compare Modulations:</strong> Run simulations with different modulation schemes to observe the trade-off between spectral efficiency and error performance.</li>
-                            <li><strong>Understand Trade-offs:</strong> Higher-order modulations (16-QAM) offer greater data rates but require higher SNR for the same BER compared to lower-order schemes (BPSK).</li>
+                            <li id="ber-step-1"><strong>Getting Started:</strong> This simulation analyzes the Bit Error Rate (BER) performance of OFDM systems across different Signal-to-Noise Ratio (SNR) values.</li>
+                            <li id="ber-step-2"><strong>Configure OFDM Parameters:</strong> Set the length of OFDM data (L) and cyclic prefix length (Ncp) to define your OFDM symbol structure.</li>
+                            <li id="ber-step-3"><strong>Select Modulation:</strong> Choose the modulation scheme (BPSK, QPSK, or 16-QAM) to analyze its BER performance characteristics.</li>
+                            <li id="ber-step-4"><strong>Define SNR Range:</strong> Set the SNR increment (in dB) to determine the granularity of the performance curve. Smaller increments provide more detailed curves but take longer to compute.</li>
+                            <li id="ber-step-5"><strong>Run BER Simulation:</strong> Click "Run BER Simulation" to compute BER values across multiple SNR points using Monte Carlo simulation.</li>
+                            <li id="ber-step-6"><strong>Analyze Performance Curve:</strong> Examine the BER vs. SNR plot to understand how error rate decreases as signal quality improves.</li>
+                            <li id="ber-step-7"><strong>Compare Modulations:</strong> Run simulations with different modulation schemes to observe the trade-off between spectral efficiency and error performance.</li>
+                            <li id="ber-step-8"><strong>Understand Trade-offs:</strong> Higher-order modulations (16-QAM) offer greater data rates but require higher SNR for the same BER compared to lower-order schemes (BPSK).</li>
                         </ol>
                     </div>
                 </div>

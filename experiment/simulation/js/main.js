@@ -41,6 +41,27 @@ class Complex {
         return `${this.re.toFixed(3)}${sign}${this.im.toFixed(3)}i`;
     }
 }
+// ADDED: Helper function to highlight instructions
+function highlightInstruction(stepId) {
+    // Remove active class from all simulation and BER steps
+    const allIds = [
+        'sim-step-1', 'sim-step-2', 'sim-step-3', 'sim-step-4', 
+        'sim-step-5', 'sim-step-6', 'sim-step-7', 'sim-step-8',
+        'ber-step-1', 'ber-step-2', 'ber-step-3', 'ber-step-4', 
+        'ber-step-5', 'ber-step-6', 'ber-step-7', 'ber-step-8'
+    ];
+    
+    allIds.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.classList.remove('active-instruction');
+    });
+
+    // Add active class to target step
+    const target = document.getElementById(stepId);
+    if (target) {
+        target.classList.add('active-instruction');
+    }
+}
 function fft(x) {
     const N = x.length;
     if (N <= 1) return x;
@@ -134,7 +155,10 @@ function qam16Demodulate(symbol) {
 
 function generateBits(numBits) { return Array.from({ length: numBits }, () => Math.random() > 0.5 ? 1 : 0); }
 
+// MODIFIED: openTab function
 function openTab(evt, tabName) {
+    // ... existing tab switching code ...
+    
     // Hide all tab contents
     const tabContents = document.getElementsByClassName("tab-content");
     for (let i = 0; i < tabContents.length; i++) {
@@ -153,18 +177,18 @@ function openTab(evt, tabName) {
 
     // Reset charts and UI state when switching tabs
     if (tabName === 'simulationTab') {
-        // Show the first chart when entering simulation tab
         updateChartVisibility(0);
-    } else {
-        hideStepByStepCharts();
-    }
-    hideOutputCharts();
-    
-    if (tabName === 'simulationTab') {
+        // ADDED: Reset to Step 1 for Simulation
+        highlightInstruction('sim-step-1');
         // Reset to first block for step-by-step
         currentBlockIndex = 0;
         highlightBlock(currentBlockIndex);
+    } else {
+        hideStepByStepCharts();
+        // ADDED: Reset to Step 1 for BER
+        highlightInstruction('ber-step-1');
     }
+    hideOutputCharts();
 }
 
 function modulate(bits, modulationScheme, bitsPerSymbol) {
@@ -387,6 +411,7 @@ const frequencies = Array.from({ length: fftLengthForSpectrum }, (_, i) =>
 // Replace the existing runStepByStepSimulation function's spectrum calculation part:
 
 async function runStepByStepSimulation() {
+    highlightInstruction('sim-step-3');
     // --- 1. Get Parameters from UI ---
     const nFFTSize = parseInt(document.getElementById('nFFTSize').value);
     const numSubcarriers = parseInt(document.getElementById('numSubcarriers').value);
@@ -486,6 +511,10 @@ async function runStepByStepSimulation() {
         highlightBlock(currentBlockIndex);
         document.getElementById('nextBlockBtn').disabled = false;
         document.getElementById('prevBlockBtn').disabled = true;
+
+        // ADDED: Highlight Step 4 (Navigate) 
+        // Using a timeout to transition focus after simulation finishes
+        setTimeout(() => highlightInstruction('sim-step-4'), 500);
 
     } catch (error) {
         console.error("Step-by-step simulation error:", error);
@@ -611,6 +640,7 @@ function addAwgnMatlab(signal, snrDb) {
 // Fix 2 & 3: Optimized BER Simulation with Corrected Logic
 // === Corrected BER Simulation Function ===
 async function runBerSimulation() {
+    highlightInstruction('ber-step-5');
     document.getElementById('loadingSpinnerBER').style.display = 'block';
     document.getElementById('errorMessageBER').style.display = 'none';
 
@@ -780,6 +810,14 @@ async function runBerSimulation() {
         
         updateBerChart(); // Call without arguments
         document.getElementById('berCurveChart').parentElement.style.display = 'block';
+
+        // ADDED: Highlight Step 6 (Analyze Curve)
+        highlightInstruction('ber-step-6');
+        
+        // If multiple curves exist, highlight Step 7 (Compare)
+        if (berChartDatasets.length > 1) {
+            setTimeout(() => highlightInstruction('ber-step-7'), 1500);
+        }
 
     } catch (error) {
         console.error("BER simulation error:", error);
@@ -1021,6 +1059,17 @@ function highlightBlock(index) {
 
     updateChartVisibility(index);
     updateBlockOutputDisplayContent(index);
+
+    // ADDED: Logic to highlight Step 5 or 6 depending on progress
+    if (index > 0) {
+        // If we are stepping through blocks, highlight Step 5 (Observe Diagram)
+        highlightInstruction('sim-step-5');
+    }
+    
+    if (index === allOfdmBlockIds.length - 1) {
+        // If we reached the end (RX), highlight Step 6 (Analyze Outputs)
+        highlightInstruction('sim-step-6');
+    }
 }
 
 // Replace your getArrowId function with this improved version that handles multiple arrows:
@@ -1817,34 +1866,68 @@ function displayError(message) {
     document.getElementById('loadingSpinner').style.display = 'none';
 }
 
-// Replace your window.onload section with this version that includes debugging:
+// REPLACE your existing window.onload with this version
 window.onload = function() {
     initializeCharts();
+    
+    // ADDED: Initial Highlight
+    highlightInstruction('sim-step-1');
+
     document.getElementById('runStepByStepBtn').addEventListener('click', runStepByStepSimulation);
     document.getElementById('runBerSimBtn').addEventListener('click', runBerSimulation);
     
     // Debug: Log when Next button is clicked
     document.getElementById('nextBlockBtn').addEventListener('click', () => {
-        console.log('Next button clicked! Current index:', currentBlockIndex, 'Max index:', allOfdmBlockIds.length - 1);
         if (currentBlockIndex < allOfdmBlockIds.length - 1) {
             currentBlockIndex++;
-            console.log('Moving to index:', currentBlockIndex);
             highlightBlock(currentBlockIndex);
-        } else {
-            console.log('Already at last block');
         }
     });
     
     document.getElementById('prevBlockBtn').addEventListener('click', () => {
-        console.log('Previous button clicked! Current index:', currentBlockIndex);
         if (currentBlockIndex > 0) {
             currentBlockIndex--;
-            console.log('Moving to index:', currentBlockIndex);
             highlightBlock(currentBlockIndex);
-        } else {
-            console.log('Already at first block');
         }
     });
+
+    // --- INSERTED CODE STARTS HERE ---
+    
+    // ADDED: Input Event Listeners for Instructions
+    
+    // -- Simulation Tab Inputs --
+    const simInputs = ['nFFTSize', 'numSubcarriers', 'modulationScheme', 'cpLength', 'snrDb', 'equalization'];
+    simInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) {
+            el.addEventListener('focus', () => highlightInstruction('sim-step-2'));
+            // If user changes param after running, suggest experimenting (Step 8)
+            el.addEventListener('change', () => {
+                if(globalTransmittedBits.length > 0) {
+                     highlightInstruction('sim-step-8');
+                } else {
+                     highlightInstruction('sim-step-2');
+                }
+            });
+        }
+    });
+
+    // -- BER Tab Inputs --
+    // Step 2: OFDM Params
+    ['ber_ofdmLength', 'ber_cpLength'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('focus', () => highlightInstruction('ber-step-2'));
+    });
+
+    // Step 3: Modulation
+    const berMod = document.getElementById('ber_modulationScheme');
+    if(berMod) berMod.addEventListener('focus', () => highlightInstruction('ber-step-3'));
+
+    // Step 4: SNR Range
+    const berSnr = document.getElementById('ber_snrIncrement');
+    if(berSnr) berSnr.addEventListener('focus', () => highlightInstruction('ber-step-4'));
+
+    // --- INSERTED CODE ENDS HERE ---
     
     // Show the simulation tab by default
     document.getElementById('simulationTab').style.display = 'block';
