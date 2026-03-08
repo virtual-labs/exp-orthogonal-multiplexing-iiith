@@ -10,10 +10,10 @@
         "d": "Eliminates the need for channel coding"
       },
       "explanations": {
-        "a": "Incorrect. OFDM generally requires the same bandwidth as single-carrier systems.",
-        "b": "Incorrect. OFDM transmitter complexity is generally higher due to FFT processing.",
-        "c": "Correct. OFDM splits the wideband channel into many narrowband flat-fading subcarriers, simplifying equalization.",
-        "d": "Incorrect. Channel coding is still needed in OFDM systems."
+        "a": "Incorrect. OFDM generally requires the same overall bandwidth as an equivalent single-carrier system; it simply divides that bandwidth into smaller segments.",
+        "b": "Incorrect. Transmitter complexity in OFDM is actually higher due to the need for Inverse Fast Fourier Transform (IFFT) processing.",
+        "c": "Correct. By dividing a wideband channel into many narrowband subcarriers, OFDM ensures each subcarrier experiences flat fading. This makes channel equalization at the receiver much simpler.",
+        "d": "Incorrect. Channel coding is still absolutely necessary in OFDM to recover data lost to deep fades on specific subcarriers."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
@@ -27,10 +27,10 @@
         "d": "CDMA"
       },
       "explanations": {
-        "a": "Incorrect. AM radio uses amplitude modulation, not OFDM.",
-        "b": "Incorrect. GSM uses TDMA and FDMA, not OFDM.",
-        "c": "Correct. Modern Wi-Fi standards use OFDM for high data rates and robustness.",
-        "d": "Incorrect. CDMA uses spread spectrum, not OFDM."
+        "a": "Incorrect. AM radio uses simple analog Amplitude Modulation.",
+        "b": "Incorrect. 2G GSM cellular networks use Time Division Multiple Access (TDMA) and Frequency Division Multiple Access (FDMA).",
+        "c": "Correct. Modern Wi-Fi standards rely heavily on OFDM to achieve high data rates and resist multipath interference in indoor environments.",
+        "d": "Incorrect. Traditional CDMA (Code Division Multiple Access) uses spread-spectrum technology, not OFDM."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
@@ -44,10 +44,10 @@
         "d": "Equal power allocation"
       },
       "explanations": {
-        "a": "Incorrect. Modulation schemes do not ensure orthogonality.",
-        "b": "Incorrect. Orthogonality is not maintained by time separation but frequency spacing.",
-        "c": "Correct. Proper subcarrier spacing ensures orthogonality and prevents inter-carrier interference.",
-        "d": "Incorrect. Power allocation does not affect orthogonality."
+        "a": "Incorrect. The modulation scheme (like QAM or BPSK) maps bits to symbols but has no physical effect on the mathematical orthogonality between different frequencies.",
+        "b": "Incorrect. In OFDM, all subcarriers overlap and are transmitted simultaneously in the time domain.",
+        "c": "Correct. Subcarriers are mathematically orthogonal (meaning they don't interfere with each other) only when their frequency spacing (Δf) is exactly equal to 1/Ts, where Ts is the active symbol duration.",
+        "d": "Incorrect. Power allocation affects the Signal-to-Noise Ratio (SNR), not the orthogonality."
       },
       "correctAnswer": "c",
       "difficulty": "intermediate"
@@ -61,10 +61,10 @@
         "d": "Dependent on the SNR"
       },
       "explanations": {
-        "a": "Incorrect. Subcarrier spacing must be chosen carefully.",
-        "b": "Incorrect. The total bandwidth contains all subcarriers but spacing is smaller.",
-        "c": "Correct. This spacing ensures subcarrier orthogonality.",
-        "d": "Incorrect. SNR does not determine subcarrier spacing."
+        "a": "Incorrect. If spacing were arbitrary, subcarriers would interfere with one another, causing Inter-Carrier Interference (ICI).",
+        "b": "Incorrect. The channel bandwidth is the total frequency range used by the system, which is divided among hundreds or thousands of subcarriers.",
+        "c": "Correct. A spacing of exactly 1/Ts ensures that the integral of the product of any two distinct subcarriers over the symbol period is zero, which defines their orthogonality.",
+        "d": "Incorrect. SNR defines signal quality, while subcarrier spacing is a fixed physical parameter of the system design."
       },
       "correctAnswer": "c",
       "difficulty": "intermediate"
@@ -78,10 +78,10 @@
         "d": "Guard bands"
       },
       "explanations": {
-        "a": "Incorrect. Raised cosine filtering is common in single-carrier systems.",
-        "b": "Correct. Cyclic prefix absorbs delayed echoes to prevent ISI.",
-        "c": "Incorrect. Low-pass filters do not specifically mitigate ISI in OFDM.",
-        "d": "Incorrect. Guard bands reduce interference but do not directly mitigate ISI."
+        "a": "Incorrect. Raised cosine filters are pulse-shaping filters commonly used to reduce ISI in single-carrier systems, but not in standard OFDM.",
+        "b": "Correct. The Cyclic Prefix (CP) acts as a time-domain guard interval between OFDM symbols. It absorbs delayed multipath echoes from the previous symbol, preventing them from corrupting the current symbol.",
+        "c": "Incorrect. Low-pass filters limit overall signal bandwidth but cannot resolve the time-delayed echoes that cause ISI.",
+        "d": "Incorrect. Guard bands are empty frequency ranges at the edges of the spectrum used to prevent out-of-band interference, not time-domain ISI."
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -95,10 +95,10 @@
         "d": "Interference-limited channels"
       },
       "explanations": {
-        "a": "Incorrect. OFDM works well beyond AWGN channels.",
-        "b": "Correct. OFDM converts frequency-selective fading into flat fading per subcarrier, simplifying equalization.",
-        "c": "Incorrect. Flat fading can be handled by simpler single-carrier systems.",
-        "d": "Incorrect. Interference-limited conditions require other mitigation techniques."
+        "a": "Incorrect. While OFDM works in AWGN, its complex design is meant to solve issues far more complicated than simple white noise.",
+        "b": "Correct. In a frequency-selective fading channel, a wideband signal gets heavily distorted. OFDM mitigates this by breaking the wideband channel into many narrow sub-bands that each experience easily-correctable flat fading.",
+        "c": "Incorrect. A purely flat fading channel doesn't strictly require OFDM; a simpler single-carrier system could be equalized easily.",
+        "d": "Incorrect. OFDM is actually quite sensitive to narrow-band interference and Doppler shifts."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
@@ -107,15 +107,15 @@
       "question": "What is the role of the Inverse Fast Fourier Transform (IFFT) in an OFDM transmitter?",
       "answers": {
         "a": "Modulate data onto the carrier frequency",
-        "b": "Convert frequency-domain symbols into time-domain waveform",
+        "b": "Convert frequency-domain symbols into a time-domain waveform",
         "c": "Filter out noise",
         "d": "Demodulate the signal"
       },
       "explanations": {
-        "a": "Incorrect. IFFT does not directly modulate on carrier frequency.",
-        "b": "Correct. IFFT converts the set of modulated subcarriers into a time-domain OFDM symbol.",
-        "c": "Incorrect. Filtering is done separately.",
-        "d": "Incorrect. Demodulation is done at the receiver using FFT."
+        "a": "Incorrect. Up-conversion to the actual high-frequency RF carrier is done later by analog RF mixers, not the IFFT.",
+        "b": "Correct. The IFFT takes the parallel array of frequency-domain QAM/BPSK symbols and mathematically transforms them into a single, combined time-domain OFDM waveform for transmission.",
+        "c": "Incorrect. Filtering is handled separately by digital and analog filters.",
+        "d": "Incorrect. Demodulation (converting time-domain back to frequency-domain) is performed by the FFT at the receiver."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
@@ -129,10 +129,10 @@
         "d": "Equal to the number of subcarriers"
       },
       "explanations": {
-        "a": "Incorrect. CP is a small fraction of the symbol duration.",
-        "b": "Incorrect. CP length is much shorter than the OFDM frame.",
-        "c": "Correct. CP must be longer than maximum channel delay spread to avoid ISI.",
-        "d": "Incorrect. CP length is measured in time, not subcarrier count."
+        "a": "Incorrect. If the CP equaled the symbol duration, spectral efficiency would drop by 50% because half the transmission time would be redundant data.",
+        "b": "Incorrect. The CP is appended to each individual symbol within the frame, making it much shorter than a full frame.",
+        "c": "Correct. To completely eliminate Inter-Symbol Interference (ISI), the time length of the Cyclic Prefix must be greater than or equal to the maximum delay spread (the longest echo) of the multipath channel.",
+        "d": "Incorrect. The CP is measured in units of time (or time-domain sample counts), not by the number of frequency subcarriers."
       },
       "correctAnswer": "c",
       "difficulty": "intermediate"
@@ -146,10 +146,10 @@
         "d": "Decision feedback equalizer"
       },
       "explanations": {
-        "a": "Incorrect. OFDM typically uses simple frequency-domain equalization.",
-        "b": "Correct. Each subcarrier is equalized independently by scalar multiplication in frequency domain.",
-        "c": "Incorrect. LMS is more common in single-carrier adaptive systems.",
-        "d": "Incorrect. DFE is not commonly used in OFDM."
+        "a": "Incorrect. Complex time-domain FIR filters are used in single-carrier systems; OFDM specifically aims to avoid using them.",
+        "b": "Correct. Because each OFDM subcarrier experiences simple flat fading, the receiver only needs to perform a single complex multiplication (a scalar equalizer) per subcarrier in the frequency domain.",
+        "c": "Incorrect. Adaptive time-domain equalizers (like LMS) are computationally heavy and typically used in wideband single-carrier systems.",
+        "d": "Incorrect. Decision Feedback Equalization (DFE) is a complex technique used for severe ISI, which OFDM handles natively via the Cyclic Prefix."
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
