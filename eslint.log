@@ -1,0 +1,30 @@
+
+/home/runner/work/exp-orthogonal-multiplexing-iiith/exp-orthogonal-multiplexing-iiith/experiment/simulation/js/main.js
+   159:10  warning  'openTab' is defined but never used                       no-unused-vars
+   277:33  warning  'nFFT' is defined but never used                          no-unused-vars
+   277:39  warning  'cpLen' is defined but never used                         no-unused-vars
+   277:46  warning  'numDataCarriers' is defined but never used               no-unused-vars
+   314:17  warning  Unexpected lexical declaration in case block              no-case-declarations
+   315:17  warning  Unexpected lexical declaration in case block              no-case-declarations
+   371:10  warning  'formatComplexArrayForDisplay' is defined but never used  no-unused-vars
+   490:15  warning  'decidedIdealSymbols' is assigned a value but never used  no-unused-vars
+   624:10  warning  'transpose' is defined but never used                     no-unused-vars
+   641:10  warning  'addAwgnMatlab' is defined but never used                 no-unused-vars
+  1123:10  warning  'showOutputChart' is defined but never used               no-unused-vars
+  1169:10  warning  'showChart' is defined but never used                     no-unused-vars
+  1404:13  warning  Unexpected lexical declaration in case block              no-case-declarations
+  1410:13  warning  Unexpected lexical declaration in case block              no-case-declarations
+  1411:13  warning  Unexpected lexical declaration in case block              no-case-declarations
+  1412:13  warning  Unexpected lexical declaration in case block              no-case-declarations
+  1567:37  warning  'Chart' is not defined                                    no-undef
+  1568:41  warning  'Chart' is not defined                                    no-undef
+  1618:30  warning  'Chart' is not defined                                    no-undef
+  1619:35  warning  'Chart' is not defined                                    no-undef
+  1620:36  warning  'Chart' is not defined                                    no-undef
+  1621:34  warning  'Chart' is not defined                                    no-undef
+  1622:38  warning  'Chart' is not defined                                    no-undef
+  1623:25  warning  'Chart' is not defined                                    no-undef
+  1857:65  warning  'index' is defined but never used                         no-unused-vars
+
+✖ 25 problems (0 errors, 25 warnings)
+
